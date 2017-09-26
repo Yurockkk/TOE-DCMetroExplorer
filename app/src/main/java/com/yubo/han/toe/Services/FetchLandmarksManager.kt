@@ -50,31 +50,23 @@ class FetchLandmarksManager(val context: Context) {
 
 
     // Get landmarks list from Jsonobject
-    fun parseLandmarksFromJSON(jsonobject: JsonObject): String? {
+    fun parseLandmarksFromJSON(jsonobject: JsonObject): ArrayList<String>? {
 
-        val landmarksResults = jsonobject.getAsJsonArray("businesses").get(1).toString()
-        return landmarksResults
+        var landmarks = arrayListOf<String>()
 
+        val landmarksResults = jsonobject.getAsJsonArray("businesses")
+        if (landmarksResults != null && landmarksResults.size() > 0) {
+            for (i in 0..landmarksResults.size() - 1) {
+                var landmarksResult = landmarksResults.get(i).toString()
+                landmarks.add(landmarksResult)
+            }
 
+            return landmarks
+        }
+
+        return null
 
     }
 
-
-
-
-
-
-//    fun queryYelpForLandMarks(address: String): JsonObject? {
-//        try {
-//            return Ion.with(context).load(Constants.YELP_SEARCH_URL)
-//                    .addHeader("Authorization", Constants.YELP_SEARCH_TOKEN)
-//                    .addQuery("term", Constants.term)
-//                    .addQuery("location", address)
-//                    .asJsonObject().get()
-//        } catch (e: Exception) {
-//            Log.e(LOG_TAG, e.message)
-//            return null
-//        }
-//    }
 
 }

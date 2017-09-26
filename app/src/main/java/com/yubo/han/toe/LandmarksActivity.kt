@@ -31,5 +31,5 @@ class LandmarksActivity : AppCompatActivity() {
         fetchLandmarksManager.queryYelpForLandMarks("foggybottom")
 
     }
-    
+
 }
