@@ -15,14 +15,13 @@ import org.jetbrains.anko.toast
  */
 class FetchLandmarksManager(val context: Context) {
     private val LOG_TAG = "FetchLandmarksManager"
-//    var imageSearchCompletionListener: ImageSearchCompletionListener? = null
-//
-//    interface ImageSearchCompletionListener {
-//        fun imageLoaded()
-//        fun imageNotLoaded()
-//    }
 
+    var landmarkSearchCompletionListener: LandmarkSearchCompletionListener? = null
 
+    interface LandmarkSearchCompletionListener {
+        fun landmarkLoaded(landmarkList:ArrayList<Landmarks>)
+        fun landmarkNotLoaded()
+    }
 
     //Query landmarks list from Yelp Api
     fun queryYelpForLandMarks(latitude: Float, longitude: Float) {
@@ -35,15 +34,18 @@ class FetchLandmarksManager(val context: Context) {
                 .setCallback { error, result ->
                     error?.let {
                         Log.e(LOG_TAG, it.message)
+                        landmarkSearchCompletionListener?.landmarkNotLoaded()
                     }
 
                     result?.let {
-                        val json = parseLandmarksFromJSON(it)
+                        val landmarkList = parseLandmarksFromJSON(it)
 
-                        if (json != null) {
-                            Log.e(LOG_TAG, "${json}")
+                        if (landmarkList != null) {
+                            //Log.e(LOG_TAG, "${landmarkList}")
+                            landmarkSearchCompletionListener?.landmarkLoaded(landmarkList)
                         }else {
                             Log.e(LOG_TAG, "cannot get parsed json")
+                            landmarkSearchCompletionListener?.landmarkNotLoaded()
                         }
 
                     }
@@ -55,7 +57,7 @@ class FetchLandmarksManager(val context: Context) {
     // Get landmarks list from Jsonobject
     fun parseLandmarksFromJSON(jsonobject: JsonObject): ArrayList<Landmarks>? {
 
-        var landmarksList = arrayListOf<Landmarks>()
+        val landmarksList = arrayListOf<Landmarks>()
 
         val landmarksArray = jsonobject.getAsJsonArray(Constants.YELP_JSON_MEMBER_NAME)
 
@@ -77,8 +79,5 @@ class FetchLandmarksManager(val context: Context) {
         }
 
         return null
-
     }
-
-
 }

@@ -1,7 +1,41 @@
 package com.yubo.han.toe.Services
 
+import android.content.Context
+import android.support.v7.widget.RecyclerView
+
+
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.squareup.picasso.Picasso
+
+import com.yubo.han.toe.R
+import com.yubo.han.toe.model.Landmarks
+
+import kotlinx.android.synthetic.main.row_landmarks.view.*
+
 /**
  * Created by han on 9/25/17.
  */
-class LandmarksAdapter {
+class LandmarksAdapter(private var context: Context,private var landmarkList: ArrayList<Landmarks>): RecyclerView.Adapter<LandmarksAdapter.ViewHolder>() {
+        private val LOG_TAG = "LandmarksAdapter"
+
+
+        override fun getItemCount() = landmarkList.size
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_landmarks, parent, false)
+            return ViewHolder(itemView)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val landmark = landmarkList.get(position)
+            holder.itemView.landmarkName.text = landmark.name
+            Picasso.with(context).load(landmark.imageUrl).into(holder.itemView.landmarkImage)
+
+        }
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        }
 }

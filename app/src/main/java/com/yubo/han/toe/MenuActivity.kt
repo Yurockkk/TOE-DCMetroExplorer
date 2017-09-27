@@ -32,7 +32,7 @@ class MenuActivity : AppCompatActivity() {
         })
 
         favorite_landmark_button.setOnClickListener(View.OnClickListener {
-            val favIntent = Intent(this,LandmarkDetailActivity::class.java)
+            val favIntent = Intent(this,LandmarksActivity::class.java)
             startActivity(favIntent)
         })
     }
