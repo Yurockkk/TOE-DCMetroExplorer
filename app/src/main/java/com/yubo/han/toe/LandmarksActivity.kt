@@ -28,7 +28,7 @@ class LandmarksActivity : AppCompatActivity() {
     fun loadYelp() {
         fetchLandmarksManager = FetchLandmarksManager(this)
         //To do
-        fetchLandmarksManager.queryYelpForLandMarks("foggybottom")
+        fetchLandmarksManager.queryYelpForLandMarks(38.9.toFloat(), -77.051825.toFloat())
 
     }
 

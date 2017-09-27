@@ -2,10 +2,12 @@ package com.yubo.han.toe.Services
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
+import com.yubo.han.toe.model.Landmarks
 import org.jetbrains.anko.toast
 
 /**
@@ -23,11 +25,12 @@ class FetchLandmarksManager(val context: Context) {
 
 
     //Query landmarks list from Yelp Api
-    fun queryYelpForLandMarks(address: String) {
+    fun queryYelpForLandMarks(latitude: Float, longitude: Float) {
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
                 .addHeader("Authorization", Constants.YELP_SEARCH_TOKEN)
                 .addQuery("term", Constants.term)
-                .addQuery("location", address)
+                .addQuery("latitude", latitude.toString())
+                .addQuery("longitude", longitude.toString())
                 .asJsonObject()
                 .setCallback { error, result ->
                     error?.let {
@@ -50,18 +53,27 @@ class FetchLandmarksManager(val context: Context) {
 
 
     // Get landmarks list from Jsonobject
-    fun parseLandmarksFromJSON(jsonobject: JsonObject): ArrayList<String>? {
+    fun parseLandmarksFromJSON(jsonobject: JsonObject): ArrayList<Landmarks>? {
 
-        var landmarks = arrayListOf<String>()
+        var landmarksList = arrayListOf<Landmarks>()
 
-        val landmarksResults = jsonobject.getAsJsonArray("businesses")
-        if (landmarksResults != null && landmarksResults.size() > 0) {
-            for (i in 0..landmarksResults.size() - 1) {
-                var landmarksResult = landmarksResults.get(i).toString()
-                landmarks.add(landmarksResult)
+        val landmarksArray = jsonobject.getAsJsonArray(Constants.YELP_JSON_MEMBER_NAME)
+
+        if (landmarksArray != null && landmarksArray.size() > 0) {
+            for (i in 0..landmarksArray.size() - 1) {
+                val json = landmarksArray.get(i).asJsonObject
+                val name = json.get("name").asString
+                val imageUrl = Uri.parse(json.get("image_url").asString)
+
+                val coordinates = json.get("coordinates")
+                val latitude = coordinates.asJsonObject.get("latitude").asFloat
+                val longitude = coordinates.asJsonObject.get("longitude").asFloat
+
+                val landmark = Landmarks(name, imageUrl, latitude, longitude)
+                landmarksList.add(landmark)
             }
 
-            return landmarks
+            return landmarksList
         }
 
         return null
