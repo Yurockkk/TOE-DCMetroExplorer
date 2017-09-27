@@ -13,6 +13,16 @@ class FetchMetroStationsManager(val context: Context) {
 
     private val LOG_TAG = "FetchMetroStationsManager"
 
+    var metroStationsCompletedListener: MetroStationsCompletedListener? = null
+
+
+    interface MetroStationsCompletedListener{
+
+        fun stationsLoaded()
+        fun stationsNotLoaded()
+
+    }
+
     fun queryWMATAForAllStations(){
 
         Ion.with(context)
@@ -21,6 +31,7 @@ class FetchMetroStationsManager(val context: Context) {
                 .setCallback { error, result ->
                     error?.let {
                         Log.e(LOG_TAG, it.message)
+                        metroStationsCompletedListener?.stationsNotLoaded()
                     }
 
                     result?.let {
@@ -29,8 +40,10 @@ class FetchMetroStationsManager(val context: Context) {
 
                         if (json != null) {
                             Log.e(LOG_TAG, "${json}")
+                            metroStationsCompletedListener?.stationsLoaded()
                         }else {
                             Log.e(LOG_TAG, "cannot get parsed json")
+                            metroStationsCompletedListener?.stationsNotLoaded()
                         }
 
                     }

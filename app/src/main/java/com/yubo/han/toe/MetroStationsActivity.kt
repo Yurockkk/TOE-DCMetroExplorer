@@ -3,8 +3,10 @@ package com.yubo.han.toe
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.yubo.han.toe.Services.FetchMetroStationsManager
+import org.jetbrains.anko.toast
 
-class MetroStationsActivity : AppCompatActivity() {
+class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsCompletedListener {
+
 
     val LOG_TAG = "MetroStationsActivity"
     lateinit var mFetchMetroStationsManager: FetchMetroStationsManager
@@ -18,6 +20,21 @@ class MetroStationsActivity : AppCompatActivity() {
 
     private fun loapMetroStations() {
         mFetchMetroStationsManager = FetchMetroStationsManager(this)
+
+        //regist itself to metroStationsCompletedListener
+        mFetchMetroStationsManager.metroStationsCompletedListener = this
+
+        //query WMATA for all metro stations
         mFetchMetroStationsManager.queryWMATAForAllStations()
+
+    }
+
+    override fun stationsLoaded() {
+        toast("stations loaded")
+    }
+
+    override fun stationsNotLoaded() {
+        toast("stations not loaded")
+
     }
 }
