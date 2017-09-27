@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.yubo.han.toe.Services.FetchMetroStationsManager
 import org.jetbrains.anko.toast
 
-class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsCompletedListener {
+class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsSearchCompletedListener {
 
 
     val LOG_TAG = "MetroStationsActivity"
@@ -22,7 +22,7 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
         mFetchMetroStationsManager = FetchMetroStationsManager(this)
 
         //regist itself to metroStationsCompletedListener
-        mFetchMetroStationsManager.metroStationsCompletedListener = this
+        mFetchMetroStationsManager.metroStationsSearchCompletedListener = this
 
         //query WMATA for all metro stations
         mFetchMetroStationsManager.queryWMATAForAllStations()
@@ -30,7 +30,7 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
     }
 
     override fun stationsLoaded() {
-        toast("stations loaded")
+        toast("all stations loaded")
     }
 
     override fun stationsNotLoaded() {

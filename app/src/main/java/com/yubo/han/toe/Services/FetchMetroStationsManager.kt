@@ -13,10 +13,10 @@ class FetchMetroStationsManager(val context: Context) {
 
     private val LOG_TAG = "FetchMetroStationsManager"
 
-    var metroStationsCompletedListener: MetroStationsCompletedListener? = null
+    var metroStationsSearchCompletedListener: MetroStationsSearchCompletedListener? = null
 
 
-    interface MetroStationsCompletedListener{
+    interface MetroStationsSearchCompletedListener{
 
         fun stationsLoaded()
         fun stationsNotLoaded()
@@ -31,7 +31,7 @@ class FetchMetroStationsManager(val context: Context) {
                 .setCallback { error, result ->
                     error?.let {
                         Log.e(LOG_TAG, it.message)
-                        metroStationsCompletedListener?.stationsNotLoaded()
+                        metroStationsSearchCompletedListener?.stationsNotLoaded()
                     }
 
                     result?.let {
@@ -40,10 +40,10 @@ class FetchMetroStationsManager(val context: Context) {
 
                         if (json != null) {
                             Log.e(LOG_TAG, "${json}")
-                            metroStationsCompletedListener?.stationsLoaded()
+                            metroStationsSearchCompletedListener?.stationsLoaded()
                         }else {
                             Log.e(LOG_TAG, "cannot get parsed json")
-                            metroStationsCompletedListener?.stationsNotLoaded()
+                            metroStationsSearchCompletedListener?.stationsNotLoaded()
                         }
 
                     }
