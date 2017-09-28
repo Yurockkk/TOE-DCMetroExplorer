@@ -1,35 +1,28 @@
 package com.yubo.han.toe
 
-
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.support.v7.widget.StaggeredGridLayoutManager
-import android.support.v7.widget.Toolbar
-import android.util.Log
-import android.view.View
-import android.widget.Toast
-
-
 import com.yubo.han.toe.Services.FetchLandmarksManager
 import com.yubo.han.toe.Services.LandmarksAdapter
 import com.yubo.han.toe.model.Landmarks
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.util.Log
+import android.widget.Toast
+
+import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.widget.Toolbar
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import kotlinx.android.synthetic.main.row_landmarks.view.*
 import org.jetbrains.anko.toast
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener {
-
-
-    lateinit var fetchLandmarksManager: FetchLandmarksManager
-
-    lateinit private var landmarkAdapter: LandmarksAdapter
-
-    lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
-
     private val LOG_TAG = "LandmarksActivity"
 
-
+    lateinit var fetchLandmarksManager: FetchLandmarksManager
+    lateinit private var landmarkAdapter: LandmarksAdapter
+    lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
 
     // Click landmark item listener
     var onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
@@ -39,8 +32,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         }
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
@@ -49,7 +40,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         val toolbar = findViewById<Toolbar>(R.id.landmarkToolbar)
         setSupportActionBar(toolbar)
 
-
         // Query and load landmarks data from yelp api
         loadYelp()
 
@@ -57,12 +47,10 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     fun loadYelp() {
         fetchLandmarksManager = FetchLandmarksManager(this)
-
         fetchLandmarksManager.landmarkSearchCompletionListener= this
 
         // Will get the location from the Location service
-        fetchLandmarksManager.queryYelpForLandMarks(38.9.toFloat(), -77.051825.toFloat())
-
+        fetchLandmarksManager.queryYelpForLandMarks(38.9.toFloat(), (-77.051825).toFloat())
     }
 
 
@@ -71,7 +59,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         //toast(landmarkList.toString())
 
         displayLandmarkList(landmarkList)
-
     }
 
     // if failed to get the landmarks

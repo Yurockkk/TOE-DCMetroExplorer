@@ -1,13 +1,13 @@
 package com.yubo.han.toe.Services
 
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.Uri
-import android.util.Log
-import com.google.gson.JsonObject
-import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
+import com.yubo.han.toe.Utilities
 import com.yubo.han.toe.model.Landmarks
+
+import android.content.Context
+import android.util.Log
+
+import com.koushikdutta.ion.Ion
 import org.jetbrains.anko.toast
 
 /**
@@ -39,7 +39,7 @@ class FetchLandmarksManager(val context: Context) {
                     }
 
                     result?.let {
-                        val landmarkList = parseLandmarksFromJSON(it)
+                        val landmarkList = Utilities.parseLandmarksFromJSON(it)
 
                         if (landmarkList != null) {
                             //Log.e(LOG_TAG, "${landmarkList}")
@@ -48,37 +48,7 @@ class FetchLandmarksManager(val context: Context) {
                             Log.e(LOG_TAG, "cannot get parsed json")
                             landmarkSearchCompletionListener?.landmarkNotLoaded()
                         }
-
                     }
                 }
-
-    }
-
-
-    // Get landmarks list from Jsonobject
-    fun parseLandmarksFromJSON(jsonobject: JsonObject): ArrayList<Landmarks>? {
-
-        val landmarksList = arrayListOf<Landmarks>()
-
-        val landmarksArray = jsonobject.getAsJsonArray(Constants.YELP_JSON_MEMBER_NAME)
-
-        if (landmarksArray != null && landmarksArray.size() > 0) {
-            for (i in 0..landmarksArray.size() - 1) {
-                val json = landmarksArray.get(i).asJsonObject
-                val name = json.get("name").asString
-                val imageUrl = Uri.parse(json.get("image_url").asString)
-
-                val coordinates = json.get("coordinates")
-                val latitude = coordinates.asJsonObject.get("latitude").asFloat
-                val longitude = coordinates.asJsonObject.get("longitude").asFloat
-
-                val landmark = Landmarks(name, imageUrl, latitude, longitude)
-                landmarksList.add(landmark)
-            }
-
-            return landmarksList
-        }
-
-        return null
     }
 }
