@@ -4,6 +4,7 @@ package com.yubo.han.toe
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.support.v7.widget.Toolbar
 import android.util.Log
 
 
@@ -29,7 +30,12 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
+        // Set up too bar
+        val toolbar = findViewById<Toolbar>(R.id.landmarkToolbar)
+        setSupportActionBar(toolbar)
 
+
+        // Query and load landmarks data from yelp api
         loadYelp()
     }
 
@@ -60,10 +66,10 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     fun displayLandmarkList(landmarkList:ArrayList<Landmarks>) {
 
         staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-        list.layoutManager = staggeredLayoutManager
+        landmarkViewList.layoutManager = staggeredLayoutManager
 
         landmarkAdapter = LandmarksAdapter(this, landmarkList)
-        list.adapter = landmarkAdapter
+        landmarkViewList.adapter = landmarkAdapter
     }
 
 }
