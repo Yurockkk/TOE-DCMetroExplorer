@@ -44,11 +44,12 @@ class LandmarksAdapter(private var context: Context,private var landmarkList: Ar
             itemView.landmarkHolder.setOnClickListener(this)
         }
 
-        override fun onClick(view: View) = itemClickListener.onItemClick(itemView, adapterPosition)
+        override fun onClick(view: View) = itemClickListener.onItemClick(itemView,
+                landmarkList.get(adapterPosition))
     }
 
     interface OnItemClickListener {
-        fun onItemClick(view: View, position: Int)
+        fun onItemClick(view: View, landmarkData: Landmarks)
     }
 
     // setter method

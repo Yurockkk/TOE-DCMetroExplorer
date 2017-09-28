@@ -1,5 +1,6 @@
 package com.yubo.han.toe
 
+import android.content.Intent
 import com.yubo.han.toe.Services.FetchLandmarksManager
 import com.yubo.han.toe.Services.LandmarksAdapter
 import com.yubo.han.toe.model.Landmarks
@@ -26,9 +27,13 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     // Click landmark item listener
     var onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
-        override fun onItemClick(view: View, position: Int) {
-            Toast.makeText(this@LandmarksActivity, "Clicked " + position + ": " +
-                    view.landmarkName.text, Toast.LENGTH_SHORT).show()
+        override fun onItemClick(view: View, landmarkData: Landmarks) {
+            //Toast.makeText(this@LandmarksActivity, "Clicked " + landmarkData.latitude + ": " + view.landmarkName.text, Toast.LENGTH_SHORT).show()
+
+            // Direct to LandmarkDetail Activity, pass landmark data to the activity
+            val landmarkDetailIntent = Intent(this@LandmarksActivity,LandmarkDetailActivity::class.java)
+            landmarkDetailIntent.putExtra("landmarkDetail", landmarkData)
+            startActivity(landmarkDetailIntent)
         }
     }
 
