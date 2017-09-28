@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 
 
 import com.yubo.han.toe.Services.FetchLandmarksManager
@@ -13,6 +15,7 @@ import com.yubo.han.toe.Services.LandmarksAdapter
 import com.yubo.han.toe.model.Landmarks
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
+import kotlinx.android.synthetic.main.row_landmarks.view.*
 import org.jetbrains.anko.toast
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener {
@@ -26,6 +29,18 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     private val LOG_TAG = "LandmarksActivity"
 
+
+
+    // Click landmark item listener
+    var onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
+        override fun onItemClick(view: View, position: Int) {
+            Toast.makeText(this@LandmarksActivity, "Clicked " + position + ": " +
+                    view.landmarkName.text, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
@@ -37,6 +52,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
         // Query and load landmarks data from yelp api
         loadYelp()
+
     }
 
     fun loadYelp() {
@@ -49,6 +65,8 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     }
 
+
+    // If successfully get the landmarks
     override fun landmarkLoaded(landmarkList:ArrayList<Landmarks>) {
         //toast(landmarkList.toString())
 
@@ -56,13 +74,14 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     }
 
+    // if failed to get the landmarks
     override fun landmarkNotLoaded() {
         // Will add a feature
-        toast("landmarks not loaded")
-
+        toast("No landmarks")
     }
 
 
+    // Display the queried landmarks in RecyclerView
     fun displayLandmarkList(landmarkList:ArrayList<Landmarks>) {
 
         staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
@@ -70,6 +89,8 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
         landmarkAdapter = LandmarksAdapter(this, landmarkList)
         landmarkViewList.adapter = landmarkAdapter
+
+        landmarkAdapter.setOnItemClickListener(onItemClickListener)
     }
 
 }

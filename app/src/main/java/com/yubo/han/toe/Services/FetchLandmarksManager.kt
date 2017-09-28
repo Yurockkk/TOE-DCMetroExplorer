@@ -28,6 +28,7 @@ class FetchLandmarksManager(val context: Context) {
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
                 .addHeader("Authorization", Constants.YELP_SEARCH_TOKEN)
                 .addQuery("term", Constants.term)
+                .addQuery("radius", Constants.YELP_SEARCH_RADIUS.toString())
                 .addQuery("latitude", latitude.toString())
                 .addQuery("longitude", longitude.toString())
                 .asJsonObject()
