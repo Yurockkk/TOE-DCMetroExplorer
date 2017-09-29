@@ -44,7 +44,7 @@ class FetchMetroStationsManager(val context: Context) {
                         val stationList = Utilities.parseStationsFromJSON(it)
 
                         if (stationList != null) {
-                            Log.e(LOG_TAG, "${stationList}")
+                            //Log.e(LOG_TAG, "${stationList}")
                             metroStationsSearchCompletedListener?.stationsLoaded(stationList)
                         }else {
                             Log.e(LOG_TAG, "cannot get parsed json")

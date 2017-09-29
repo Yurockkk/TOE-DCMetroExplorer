@@ -11,4 +11,5 @@
     <color name="dark_green">#5B852D</color>
     <color name="light_gray">#F2F2F2</color>
     <color name="photo_tint">#7f101010</color>
+    <color name="station_name">#7f101010</color>
 </resources>
