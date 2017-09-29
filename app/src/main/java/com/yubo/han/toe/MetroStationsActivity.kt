@@ -1,8 +1,11 @@
 package com.yubo.han.toe
 
+import com.yubo.han.toe.Services.FetchMetroStationsManager
+import com.yubo.han.toe.model.MetroStations
+
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.yubo.han.toe.Services.FetchMetroStationsManager
+
 import org.jetbrains.anko.toast
 
 class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsSearchCompletedListener {
@@ -29,8 +32,8 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
 
     }
 
-    override fun stationsLoaded() {
-        toast("all stations loaded")
+    override fun stationsLoaded(stationList: ArrayList<MetroStations>) {
+        toast("${stationList}")
     }
 
     override fun stationsNotLoaded() {

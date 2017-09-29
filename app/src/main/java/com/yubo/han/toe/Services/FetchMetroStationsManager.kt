@@ -7,6 +7,7 @@ import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
 import com.yubo.han.toe.Utilities
+import com.yubo.han.toe.model.MetroStations
 
 import org.jetbrains.anko.toast
 
@@ -22,7 +23,7 @@ class FetchMetroStationsManager(val context: Context) {
 
     interface MetroStationsSearchCompletedListener{
 
-        fun stationsLoaded()
+        fun stationsLoaded(stationList: ArrayList<MetroStations>)
         fun stationsNotLoaded()
 
     }
@@ -40,11 +41,11 @@ class FetchMetroStationsManager(val context: Context) {
 
                     result?.let {
                         //Log.i(LOG_TAG, result.toString())
-                        val json = Utilities.parseStationsFromJSON(it)
+                        val stationList = Utilities.parseStationsFromJSON(it)
 
-                        if (json != null) {
-                            Log.e(LOG_TAG, "${json}")
-                            metroStationsSearchCompletedListener?.stationsLoaded()
+                        if (stationList != null) {
+                            Log.e(LOG_TAG, "${stationList}")
+                            metroStationsSearchCompletedListener?.stationsLoaded(stationList)
                         }else {
                             Log.e(LOG_TAG, "cannot get parsed json")
                             metroStationsSearchCompletedListener?.stationsNotLoaded()
@@ -52,6 +53,5 @@ class FetchMetroStationsManager(val context: Context) {
 
                     }
                 }
-
     }
 }
