@@ -20,4 +20,5 @@
     <color name="metro_orange_line">#FF9800</color>
     <color name="metro_green_line">#4CAF50</color>
     <color name="metro_yellow_line">#FFEB3B</color>
+    <color name="metro_no_line">#FFFFFF</color>
 </resources>

@@ -49,7 +49,23 @@
                 android:layout_height="10dp"
                 android:gravity="bottom"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
+
+            <Button
+                android:id ="@+id/metro_line_sec_button"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp" />
+
+            <Button
+                android:id ="@+id/metro_line_th_button"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp" />
 
         </LinearLayout>
 

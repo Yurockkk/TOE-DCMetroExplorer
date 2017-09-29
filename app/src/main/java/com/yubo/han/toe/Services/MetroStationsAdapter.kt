@@ -31,21 +31,31 @@ class MetroStationsAdapter(private var context: Context, private var stationList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // Set all line button invisiable
+        holder.itemView.metro_line_primary_button.visibility = View.INVISIBLE
+        holder.itemView.metro_line_sec_button.visibility = View.INVISIBLE
+        holder.itemView.metro_line_th_button.visibility = View.INVISIBLE
+
         val station = stationList.get(position)
         holder.itemView.stationName.text = station.name
-        //holder.itemView.metro_line_textView.text = station.lineCode1
-
-        // set color to the text
-        //val PrimaryLineColor = Utilities.getLineColor(station.lineCode1)
-        //holder.itemView.metro_line_textView.setTextColor(PrimaryLineColor)
 
         // Set primary metro line icon
         val primaryLineColor = Utilities.getLineColor(station.lineCode1)
         holder.itemView.metro_line_primary_button.setBackgroundResource(primaryLineColor)
+        holder.itemView.metro_line_primary_button.visibility = View.VISIBLE
 
+        // if more metrolines in this station
+        if (!station.lineCode2.isNullOrEmpty()) {
+            val secLineColor = Utilities.getLineColor(station.lineCode2.toString())
+            holder.itemView.metro_line_sec_button.setBackgroundResource(secLineColor)
+            holder.itemView.metro_line_sec_button.visibility = View.VISIBLE
 
-        //Picasso.with(context).load(station.imageUrl).into(holder.itemView.landmarkImage)
-
+            if (!station.lineCode3.isNullOrEmpty()) {
+                val secLineColor = Utilities.getLineColor(station.lineCode3.toString())
+                holder.itemView.metro_line_th_button.setBackgroundResource(secLineColor)
+                holder.itemView.metro_line_th_button.visibility = View.VISIBLE
+            }
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
