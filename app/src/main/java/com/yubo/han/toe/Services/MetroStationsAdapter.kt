@@ -1,6 +1,7 @@
 package com.yubo.han.toe.Services
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.yubo.han.toe.model.MetroStations
 
 import kotlinx.android.synthetic.main.row_metro_station.view.*
 import com.squareup.picasso.Picasso
+import com.yubo.han.toe.Utilities
 
 /**
  * Created by han on 9/25/17.
@@ -31,7 +33,11 @@ class MetroStationsAdapter(private var context: Context, private var stationList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val station = stationList.get(position)
         holder.itemView.stationName.text = station.name
-        holder.itemView.metro_line_text.text = station.lineCode1
+        holder.itemView.metro_line_textView.text = station.lineCode1
+
+        // set color to the text
+        val PrimaryLineColor = Utilities.getLineColor(station.lineCode1)
+        holder.itemView.metro_line_textView.setTextColor(PrimaryLineColor)
 
 
         //Picasso.with(context).load(station.imageUrl).into(holder.itemView.landmarkImage)
@@ -56,4 +62,5 @@ class MetroStationsAdapter(private var context: Context, private var stationList
     fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
         this.itemClickListener = itemClickListener
     }
+
 }

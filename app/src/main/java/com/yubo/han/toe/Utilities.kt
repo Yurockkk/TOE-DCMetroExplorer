@@ -1,5 +1,6 @@
 package com.yubo.han.toe
 
+import android.graphics.Color
 import android.net.Uri
 import android.util.Log
 import com.google.gson.JsonObject
@@ -78,7 +79,15 @@ object Utilities {
         return null
     }
 
-    fun getMetroLineColor() {
 
+    // Get Line Color from the linecode of metro station
+    fun getLineColor(lineColor: String) = when(lineColor) {
+        "RD" ->  Color.RED
+        "BL" ->  Color.BLUE
+        "SV" ->  Color.GRAY
+        "OR" ->  Color.parseColor("#FF9800")
+        "GR" ->  Color.GREEN
+        "YL" ->  Color.YELLOW
+        else ->  Color.BLACK
     }
 }
