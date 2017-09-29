@@ -35,4 +35,24 @@ object Utilities {
 
         return null
     }
+
+
+    // Get stations list from Jsonobject
+    fun parseStationsFromJSON(jsonobject: JsonObject): ArrayList<String>? {
+
+        var stations = arrayListOf<String>()
+
+        val stationsResults = jsonobject.getAsJsonArray("Stations")
+        if (stationsResults != null && stationsResults.size() > 0) {
+            for (i in 0..stationsResults.size() - 1) {
+                var landmarksResult = stationsResults.get(i).toString()
+                stations.add(landmarksResult)
+            }
+
+            return stations
+        }
+
+        return null
+
+    }
 }

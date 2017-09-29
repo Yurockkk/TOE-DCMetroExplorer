@@ -2,9 +2,13 @@ package com.yubo.han.toe.Services
 
 import android.content.Context
 import android.util.Log
+
 import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
+import com.yubo.han.toe.Utilities
+
+import org.jetbrains.anko.toast
 
 /**
  * Created by yubo on 9/25/17.
@@ -36,7 +40,7 @@ class FetchMetroStationsManager(val context: Context) {
 
                     result?.let {
                         //Log.i(LOG_TAG, result.toString())
-                        val json = parseStationsFromJSON(it)
+                        val json = Utilities.parseStationsFromJSON(it)
 
                         if (json != null) {
                             Log.e(LOG_TAG, "${json}")
@@ -50,24 +54,4 @@ class FetchMetroStationsManager(val context: Context) {
                 }
 
     }
-
-    // Get stations list from Jsonobject
-    fun parseStationsFromJSON(jsonobject: JsonObject): ArrayList<String>? {
-
-        var stations = arrayListOf<String>()
-
-        val stationsResults = jsonobject.getAsJsonArray("Stations")
-        if (stationsResults != null && stationsResults.size() > 0) {
-            for (i in 0..stationsResults.size() - 1) {
-                var landmarksResult = stationsResults.get(i).toString()
-                stations.add(landmarksResult)
-            }
-
-            return stations
-        }
-
-        return null
-
-    }
-
 }
