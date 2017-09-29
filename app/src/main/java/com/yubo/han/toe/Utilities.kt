@@ -3,6 +3,7 @@ package com.yubo.han.toe
 import android.net.Uri
 import com.google.gson.JsonObject
 import com.yubo.han.toe.model.Landmarks
+import com.yubo.han.toe.model.MetroStations
 
 /**
  * Created by han on 9/28/17.
@@ -42,7 +43,7 @@ object Utilities {
 
         var stations = arrayListOf<String>()
 
-        val stationsResults = jsonobject.getAsJsonArray("Stations")
+        val stationsResults = jsonobject.getAsJsonArray(Constants.Metro_JSON_MEMBER_NAME)
         if (stationsResults != null && stationsResults.size() > 0) {
             for (i in 0..stationsResults.size() - 1) {
                 var landmarksResult = stationsResults.get(i).toString()
