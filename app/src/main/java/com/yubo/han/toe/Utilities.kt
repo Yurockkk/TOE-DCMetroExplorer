@@ -77,4 +77,8 @@ object Utilities {
 
         return null
     }
+
+    fun getMetroLineColor() {
+
+    }
 }

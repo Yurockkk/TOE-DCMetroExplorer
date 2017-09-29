@@ -8,5 +8,5 @@
     <dimen name="card_elevation">1dp</dimen>
     <dimen name="card_corner_radius">0dp</dimen>
     <dimen name="activity_detail_left_margin">5dp</dimen>
-    <dimen name="station_card_holder">50dp</dimen>
+    <dimen name="station_card_holder">80dp</dimen>
 </resources>

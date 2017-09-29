@@ -31,6 +31,7 @@ class MetroStationsAdapter(private var context: Context, private var stationList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val station = stationList.get(position)
         holder.itemView.stationName.text = station.name
+        holder.itemView.metro_line_text.text = station.lineCode1
 
 
         //Picasso.with(context).load(station.imageUrl).into(holder.itemView.landmarkImage)

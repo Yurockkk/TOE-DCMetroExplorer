@@ -12,4 +12,12 @@
     <color name="light_gray">#F2F2F2</color>
     <color name="photo_tint">#7f101010</color>
     <color name="station_name">#7f101010</color>
+
+
+    <color name="metro_red_line">#F44336</color>
+    <color name="metro_blue_line">#2196F3</color>
+    <color name="metro_silver_line">#9E9E9E</color>
+    <color name="metro_orange_line">#FF9800</color>
+    <color name="metro_green_line">#4CAF50</color>
+    <color name="metro_yellow_line">#FFEB3B</color>
 </resources>
