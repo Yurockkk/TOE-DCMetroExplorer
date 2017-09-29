@@ -82,12 +82,12 @@ object Utilities {
 
     // Get Line Color from the linecode of metro station
     fun getLineColor(lineColor: String) = when(lineColor) {
-        "RD" ->  Color.RED
-        "BL" ->  Color.BLUE
-        "SV" ->  Color.GRAY
-        "OR" ->  Color.parseColor("#FF9800")
-        "GR" ->  Color.GREEN
-        "YL" ->  Color.YELLOW
-        else ->  Color.BLACK
+        "RD" ->  R.drawable.button_bg_metro_line_red
+        "BL" ->  R.drawable.button_bg_metro_line_blue
+        "SV" ->  R.drawable.button_bg_metro_line_silver
+        "OR" ->  R.drawable.button_bg_metro_line_orange
+        "GR" ->  R.drawable.button_bg_metro_line_green
+        "YL" ->  R.drawable.button_bg_metro_line_yellow
+        else ->  R.drawable.button_bg_round
     }
 }

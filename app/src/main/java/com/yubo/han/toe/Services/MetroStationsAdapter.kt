@@ -33,11 +33,15 @@ class MetroStationsAdapter(private var context: Context, private var stationList
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val station = stationList.get(position)
         holder.itemView.stationName.text = station.name
-        holder.itemView.metro_line_textView.text = station.lineCode1
+        //holder.itemView.metro_line_textView.text = station.lineCode1
 
         // set color to the text
-        val PrimaryLineColor = Utilities.getLineColor(station.lineCode1)
-        holder.itemView.metro_line_textView.setTextColor(PrimaryLineColor)
+        //val PrimaryLineColor = Utilities.getLineColor(station.lineCode1)
+        //holder.itemView.metro_line_textView.setTextColor(PrimaryLineColor)
+
+        // Set primary metro line icon
+        val primaryLineColor = Utilities.getLineColor(station.lineCode1)
+        holder.itemView.metro_line_primary_button.setBackgroundResource(primaryLineColor)
 
 
         //Picasso.with(context).load(station.imageUrl).into(holder.itemView.landmarkImage)
