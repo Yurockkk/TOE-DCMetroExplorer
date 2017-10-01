@@ -13,6 +13,9 @@ import android.widget.Toast
 
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.Toolbar
+import com.squareup.picasso.Picasso
+import com.yubo.han.toe.model.MetroStations
+import kotlinx.android.synthetic.main.activity_landmark_detail.*
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import kotlinx.android.synthetic.main.row_landmarks.view.*
@@ -20,6 +23,9 @@ import org.jetbrains.anko.toast
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener {
     private val LOG_TAG = "LandmarksActivity"
+
+    private var latitude = 38.9.toFloat()
+    private var longitude = (-77.051825).toFloat()
 
     lateinit var fetchLandmarksManager: FetchLandmarksManager
     lateinit private var landmarkAdapter: LandmarksAdapter
@@ -41,21 +47,30 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
-        // Set up too bar
-        val toolbar = findViewById<Toolbar>(R.id.landmarkToolbar)
-        setSupportActionBar(toolbar)
+        // Setup too bar
+        setSupportActionBar(landmarkToolbar)
+
+
+        //Obtain stationData from intent
+        val stationData = intent.getParcelableExtra<MetroStations>("stationData")
+        // Set member variable
+        latitude = stationData.latitude
+        longitude = stationData.longitude
+
 
         // Query and load landmarks data from yelp api
-        loadYelp()
+        loadYelp(latitude, longitude)
 
     }
 
-    fun loadYelp() {
+    fun loadYelp(lat: Float, lon: Float) {
         fetchLandmarksManager = FetchLandmarksManager(this)
         fetchLandmarksManager.landmarkSearchCompletionListener= this
 
-        // Will get the location from the Location service
-        fetchLandmarksManager.queryYelpForLandMarks(38.9.toFloat(), (-77.051825).toFloat())
+        // Get the location from the station coordinates
+//        fetchLandmarksManager.queryYelpForLandMarks(lat, lon)
+        fetchLandmarksManager.queryYelpForLandMarks(lat, lon)
+
     }
 
 

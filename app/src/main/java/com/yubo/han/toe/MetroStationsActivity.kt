@@ -1,5 +1,6 @@
 package com.yubo.han.toe
 
+import android.content.Intent
 import com.yubo.han.toe.Services.FetchMetroStationsManager
 import com.yubo.han.toe.model.MetroStations
 
@@ -16,7 +17,11 @@ import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
+
+import kotlinx.android.synthetic.main.row_metro_station.view.*
 
 
 class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsSearchCompletedListener {
@@ -29,6 +34,20 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
     lateinit var mMetroStationsAdapter: MetroStationsAdapter
 
     lateinit var stationList: ArrayList<MetroStations>
+
+
+    // Click landmark item listener
+    var onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
+        override fun onItemClick(view: View, stationData: MetroStations) {
+            //Toast.makeText(this@MetroStationsActivity, "Clicked " + stationData.latitude + ": " + view.stationName.text, Toast.LENGTH_SHORT).show()
+
+            // Direct to LandmarkActivity, pass station data to the activity
+            val landmarksIntent = Intent(this@MetroStationsActivity,LandmarksActivity::class.java)
+            landmarksIntent.putExtra("stationData", stationData)
+            startActivity(landmarksIntent)
+        }
+    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +95,9 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
 
         mMetroStationsAdapter = MetroStationsAdapter(this, stationList)
         metroStationViewList.adapter = mMetroStationsAdapter
+
+        // Action on click metro station
+        mMetroStationsAdapter.setOnItemClickListener(onItemClickListener)
 
         // To check if user search the station, if yes, do filter
         searchStation()
