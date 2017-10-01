@@ -16,7 +16,7 @@ import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
 import android.text.Editable
 import android.text.TextWatcher
-
+import android.view.WindowManager
 
 
 class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsSearchCompletedListener {
@@ -35,9 +35,12 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metro_stations)
 
-        // Set up too bar
-        val toolbar = findViewById<Toolbar>(R.id.MetroStationToolbar)
-        setSupportActionBar(toolbar)
+        // Set up tool bar
+        setSupportActionBar(metroStationToolbar)
+        // Disable android keyboard popup automatically
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
 
         loadMetroStations()
     }
