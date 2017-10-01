@@ -84,7 +84,7 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
     override fun onStop() {
         super.onStop()
-        mLocationDetector.stopLocationUpdates();
+//        mLocationDetector.stopLocationUpdates();
     }
 
     fun checkLocationPermission() {
