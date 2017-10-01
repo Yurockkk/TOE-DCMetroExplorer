@@ -77,4 +77,10 @@ class MetroStationsAdapter(private var context: Context, private var stationList
         this.itemClickListener = itemClickListener
     }
 
+    // Search
+    fun filterList(filterStations: ArrayList<MetroStations>) {
+        this.stationList = filterStations
+        notifyDataSetChanged()
+    }
+
 }
