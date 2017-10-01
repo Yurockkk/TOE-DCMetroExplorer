@@ -12,16 +12,17 @@ import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_menu.*
 import com.yubo.han.toe.Services.LocationDetector
-
-//import com.google.android.gms.location.FusedLocationProviderClient
+import org.jetbrains.anko.toast
 
 class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectCompletedListener {
+
 
 
     val LOG_TAG = "MenuActivity"
     val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 666
     //lateinit var mFusedLocationClient: Any
     lateinit var mLocationDetector: LocationDetector
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +41,14 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
     fun initUI(){
         near_station_button.setOnClickListener(View.OnClickListener {
 
-            //check location permission, if granded -> get location
-//            checkLocationPermission()
-
-            // Assume thisActivity is the current activity
             val permissionCheck = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
             Log.i(LOG_TAG,"permissionCheck: $permissionCheck")
 
             if(permissionCheck == PackageManager.PERMISSION_GRANTED){
                 //get location permission, start to detect location
-                mLocationDetector.getDeviceLastLocation()
-
+//                mLocationDetector.getDeviceLastLocation()
+                mLocationDetector.getDeviceLocationUpdate()
             }else{
                 //TODO: maybe popup a dialog to tell user we need the permission to use 'near station' function?
                 Log.i(LOG_TAG, "ask user for location permission!")
@@ -79,6 +76,15 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
     override fun onStart() {
         super.onStart()
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mLocationDetector.stopLocationUpdates();
     }
 
     fun checkLocationPermission() {
@@ -113,15 +119,18 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        when(requestCode){
-
-            MY_PERMISSIONS_REQUEST_FINE_LOCATION -> if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                // enable user to click 'near station btn'
+        if(requestCode == MY_PERMISSIONS_REQUEST_FINE_LOCATION){
+            if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                toast("get location access")
             }else{
-                //TODO: maybe popup a dialog to tell user we need the permission to use 'near station' function?
+
             }
+        }else{
+            toast("unhandled request code")
         }
     }
+
+
 
 
     //LocationDetectCompletedListener implementation
@@ -135,5 +144,22 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
     override fun locationNotDetected() {
 
         Log.i(LOG_TAG, "location not detected")
+    }
+
+    override fun onLocationChanged(p0: Location?) {
+        Log.i(LOG_TAG, "in onLocationChanged, ${p0.toString()}")
+        toast(p0.toString())
+    }
+    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+        Log.i(LOG_TAG, "in onStatusChanged, ${p0.toString()}")
+
+    }
+
+    override fun onProviderEnabled(p0: String?) {
+        Log.i(LOG_TAG, "in onProviderEnabled, ${p0.toString()}")
+    }
+
+    override fun onProviderDisabled(p0: String?) {
+        Log.i(LOG_TAG, "in onProviderDisabled, ${p0.toString()}")
     }
 }
