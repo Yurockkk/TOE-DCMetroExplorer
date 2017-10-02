@@ -39,7 +39,7 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
     }
 
     fun initUI(){
-        near_station_button.setOnClickListener(View.OnClickListener {
+        location_test_button.setOnClickListener(View.OnClickListener {
 
             val permissionCheck = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
@@ -58,15 +58,24 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
         })
 
+        // Click select station button
+        near_station_button.setOnClickListener(View.OnClickListener {
+            val nearStationIntent = Intent(this,LandmarksActivity::class.java)
+            startActivity(nearStationIntent)
+        })
+
+        // Click select station button
         select_station_button.setOnClickListener(View.OnClickListener {
             val metroStationIntent = Intent(this,MetroStationsActivity::class.java)
             startActivity(metroStationIntent)
         })
 
+
+        // Click favorite button
         favorite_landmark_button.setOnClickListener(View.OnClickListener {
-            //toast("No favorite landmarks")
-            val favoriteIntent = Intent(this, LandmarksActivity::class.java)
-            startActivity(favoriteIntent)
+            toast("No favorite landmarks")
+//            val favoriteIntent = Intent(this, LandmarksActivity::class.java)
+//            startActivity(favoriteIntent)
         })
     }
 
