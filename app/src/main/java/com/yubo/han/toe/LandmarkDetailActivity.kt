@@ -17,6 +17,10 @@ class LandmarkDetailActivity : AppCompatActivity() {
         //Obtain landmarkData from intent
         val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
 
+        landmarkDetailToolbar.title = landmarkData.name
+        // Set up tool bar
+        setSupportActionBar(landmarkDetailToolbar)
+
         // Set member variable
         val name = landmarkData.name
         val url = landmarkData.imageUrl
