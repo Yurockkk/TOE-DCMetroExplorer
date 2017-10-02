@@ -4,4 +4,5 @@
     <string name="select_station_button_text">select station</string>
     <string name="favorite_landmark_button_text">favorite landmarks</string>
     <string name="action_search">Search metro stations...</string>
+    <string name="near_station_test_button_text">near station test</string>
 </resources>

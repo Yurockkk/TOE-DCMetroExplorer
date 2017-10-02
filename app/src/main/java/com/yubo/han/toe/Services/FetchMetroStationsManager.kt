@@ -8,6 +8,7 @@ import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
 import com.yubo.han.toe.Utilities
 import com.yubo.han.toe.model.MetroStations
+import com.yubo.han.toe.model.NearMetroStations
 
 import org.jetbrains.anko.toast
 
@@ -20,6 +21,8 @@ class FetchMetroStationsManager(val context: Context) {
 
     var metroStationsSearchCompletedListener: MetroStationsSearchCompletedListener? = null
 
+    var nearMetroSearchCompletionListener: NearMetroSearchCompletionListener? = null
+
 
     interface MetroStationsSearchCompletedListener{
 
@@ -28,6 +31,12 @@ class FetchMetroStationsManager(val context: Context) {
 
     }
 
+    interface NearMetroSearchCompletionListener {
+        fun nearMetroLoaded(nearMetro: NearMetroStations)
+        fun nearMetroNotLoaded()
+    }
+
+    // Load all metro stations from MATA API
     fun queryWMATAForAllStations(){
 
         Ion.with(context)
@@ -51,6 +60,38 @@ class FetchMetroStationsManager(val context: Context) {
                             metroStationsSearchCompletedListener?.stationsNotLoaded()
                         }
 
+                    }
+                }
+    }
+
+
+
+    // Query near metro station from Yelp API
+    fun queryYelpForNearMetro(latitude: Float, longitude: Float) {
+        Ion.with(context).load(Constants.YELP_SEARCH_URL)
+                .addHeader("Authorization", Constants.YELP_SEARCH_TOKEN)
+                .addQuery("term", Constants.YELP_SEARCH_NEAR_METRO_TERM)
+                .addQuery("radius", Constants.YELP_SEARCH_NEAR_METRO_RADIUS.toString())
+                .addQuery("latitude", latitude.toString())
+                .addQuery("longitude", longitude.toString())
+                .addQuery(Constants.YELP_SEARCH_NEAR_METRO_SORT, Constants.YELP_SEARCH_NEAR_METRO_SORT_BY)
+                .asJsonObject()
+                .setCallback { error, result ->
+                    error?.let {
+                        Log.e(LOG_TAG, it.message)
+                        nearMetroSearchCompletionListener?.nearMetroNotLoaded()
+                    }
+
+                    result?.let {
+                        val nearMetro= Utilities.parseNearMetroFromJSON(it)
+
+                        if (nearMetro != null) {
+                            //Log.e(LOG_TAG, "${landmarkList}")
+                            nearMetroSearchCompletionListener?.nearMetroLoaded(nearMetro)
+                        }else {
+                            Log.e(LOG_TAG, "cannot get parsed json")
+                            nearMetroSearchCompletionListener?.nearMetroNotLoaded()
+                        }
                     }
                 }
     }

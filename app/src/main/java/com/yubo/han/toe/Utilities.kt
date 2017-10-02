@@ -6,6 +6,7 @@ import android.util.Log
 import com.google.gson.JsonObject
 import com.yubo.han.toe.model.Landmarks
 import com.yubo.han.toe.model.MetroStations
+import com.yubo.han.toe.model.NearMetroStations
 
 /**
  * Created by han on 9/28/17.
@@ -46,14 +47,14 @@ object Utilities {
 
     // Get stations list from Jsonobject
     fun parseStationsFromJSON(jsonobject: JsonObject): ArrayList<MetroStations>? {
-        var stations = arrayListOf<MetroStations>()
+        val stations = arrayListOf<MetroStations>()
 
         // Get json array from the json object
-        val stationsResults = jsonobject.getAsJsonArray(Constants.Metro_JSON_MEMBER_NAME)
+        val stationsResults = jsonobject.getAsJsonArray(Constants.METRO_JSON_MEMBER_NAME)
 
         if (stationsResults != null && stationsResults.size() > 0) {
             for (i in 0..stationsResults.size() - 1) {
-                var json = stationsResults.get(i).asJsonObject
+                val json = stationsResults.get(i).asJsonObject
 
                 // Get all json elements
                 val code = json.get("Code").asString
@@ -77,6 +78,34 @@ object Utilities {
         }
 
         return null
+    }
+
+
+    // Get the nearest metro station from Jsonobject
+    fun parseNearMetroFromJSON(jsonobject: JsonObject): NearMetroStations? {
+        val metro: NearMetroStations
+
+        val nearMetroResults = jsonobject.getAsJsonArray(Constants.YELP_JSON_MEMBER_NAME)
+
+        if (nearMetroResults != null && nearMetroResults.size() > 0) {
+            // We get the results sorted by the "distance"
+            // get the first one is the nearest one
+            val json = nearMetroResults.get(0).asJsonObject
+
+            // Get metro elements
+            val stationName = json.get("name").asString
+            val coordinates = json.get("coordinates")
+            val latitude = coordinates.asJsonObject.get("latitude").asFloat
+            val longitude = coordinates.asJsonObject.get("longitude").asFloat
+            val distance = json.asJsonObject.get("distance").asFloat
+
+            metro = NearMetroStations(stationName, latitude, longitude, distance)
+
+            return metro
+        }
+
+        return null
+
     }
 
 

@@ -8,6 +8,8 @@ import android.content.Context
 import android.util.Log
 
 import com.koushikdutta.ion.Ion
+import com.yubo.han.toe.model.MetroStations
+import com.yubo.han.toe.model.NearMetroStations
 import org.jetbrains.anko.toast
 
 /**
@@ -16,6 +18,8 @@ import org.jetbrains.anko.toast
 class FetchLandmarksManager(val context: Context) {
     private val LOG_TAG = "FetchLandmarksManager"
 
+
+
     var landmarkSearchCompletionListener: LandmarkSearchCompletionListener? = null
 
     interface LandmarkSearchCompletionListener {
@@ -23,14 +27,16 @@ class FetchLandmarksManager(val context: Context) {
         fun landmarkNotLoaded()
     }
 
+
     //Query landmarks list from Yelp Api
     fun queryYelpForLandMarks(latitude: Float, longitude: Float) {
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
                 .addHeader("Authorization", Constants.YELP_SEARCH_TOKEN)
-                .addQuery("term", Constants.term)
+                .addQuery("term", Constants.YELP_SEARCH_TERM)
                 .addQuery("radius", Constants.YELP_SEARCH_RADIUS.toString())
                 .addQuery("latitude", latitude.toString())
                 .addQuery("longitude", longitude.toString())
+                .addQuery(Constants.YELP_SEARCH_NEAR_METRO_SORT, Constants.YELP_SEARCH_NEAR_METRO_SORT_BY)
                 .asJsonObject()
                 .setCallback { error, result ->
                     error?.let {

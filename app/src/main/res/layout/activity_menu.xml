@@ -30,7 +30,7 @@
         android:id="@+id/favorite_landmark_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/favorite_landmark_button_text"/>
+        android:text="@string/near_station_test_button_text"/>
 
 
 

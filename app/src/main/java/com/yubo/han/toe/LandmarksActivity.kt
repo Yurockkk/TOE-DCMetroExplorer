@@ -14,7 +14,9 @@ import android.widget.Toast
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.Toolbar
 import com.squareup.picasso.Picasso
+import com.yubo.han.toe.Services.FetchMetroStationsManager
 import com.yubo.han.toe.model.MetroStations
+import com.yubo.han.toe.model.NearMetroStations
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
@@ -22,16 +24,17 @@ import kotlinx.android.synthetic.main.row_landmarks.view.*
 import kotlinx.android.synthetic.main.row_metro_station.*
 import org.jetbrains.anko.toast
 
-class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener {
+class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener, FetchMetroStationsManager.NearMetroSearchCompletionListener {
     private val LOG_TAG = "LandmarksActivity"
 
-    private var latitude = 38.9.toFloat()
-    private var longitude = (-77.051825).toFloat()
-    private var stationName = "foggy bottom"
+    private var curLat = 38.898955.toFloat()
+    private var curLon = (-77.042447).toFloat()
 
-    lateinit var fetchLandmarksManager: FetchLandmarksManager
+    lateinit var mFetchLandmarksManager: FetchLandmarksManager
+    lateinit var mFetchMetroStationsManager: FetchMetroStationsManager
     lateinit private var landmarkAdapter: LandmarksAdapter
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
+
 
     // Click landmark item listener
     var onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
@@ -49,31 +52,49 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
-        //Obtain stationData from intent
+        //Obtain stationData from station intent
         val stationData = intent.getParcelableExtra<MetroStations>("stationData")
-        // Set member variable
-        latitude = stationData.latitude
-        longitude = stationData.longitude
-        stationName = stationData.name
+        if (stationData != null) {// From MetroStationActivity
+            // Set member variable
+            val metroLat = stationData.latitude
+            val metroLon = stationData.longitude
+            val stationName = stationData.name
+
+            landmark_toolbar_text.text = stationName
+
+            // Query and load landmarks data from yelp api
+            loadYelp(metroLat, metroLon)
+        }
+
+        else {// From the nearest station intent
+            // Get location coordinates---TODO
 
 
-        // Setup tool bar
-        landmark_toolbar_text.text = stationName
+            // Search the nearest station
+            queryNearStations(curLat, curLon)
+        }
+
+        // Set up action bar
         setSupportActionBar(landmarkToolbar)
-
-
-        // Query and load landmarks data from yelp api
-        loadYelp(latitude, longitude)
 
     }
 
+
+    // find the nearest metro station base on current location
+    fun queryNearStations(lat: Float, lon: Float) {
+        mFetchMetroStationsManager = FetchMetroStationsManager(this)
+        mFetchMetroStationsManager.nearMetroSearchCompletionListener = this
+
+        mFetchMetroStationsManager.queryYelpForNearMetro(lat, lon)
+    }
+
+    // Load landmarks data from Yelp based on a station
     fun loadYelp(lat: Float, lon: Float) {
-        fetchLandmarksManager = FetchLandmarksManager(this)
-        fetchLandmarksManager.landmarkSearchCompletionListener= this
+        mFetchLandmarksManager = FetchLandmarksManager(this)
+        mFetchLandmarksManager.landmarkSearchCompletionListener = this
 
         // Get the location from the station coordinates
-//        fetchLandmarksManager.queryYelpForLandMarks(lat, lon)
-        fetchLandmarksManager.queryYelpForLandMarks(lat, lon)
+        mFetchLandmarksManager.queryYelpForLandMarks(lat, lon)
 
     }
 
@@ -90,6 +111,21 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         // Will add a feature
         toast("No landmarks")
     }
+
+    // If successfully get the nearest metro station
+    override fun nearMetroLoaded(nearMetro: NearMetroStations) {
+
+        landmark_toolbar_text.text = nearMetro.name
+
+        loadYelp(nearMetro.latitude, nearMetro.longitude)
+
+
+    }
+    // If failed to get the nearest metro station
+    override fun nearMetroNotLoaded() {
+        toast("No metro found near you")
+    }
+
 
 
     // Display the queried landmarks in RecyclerView

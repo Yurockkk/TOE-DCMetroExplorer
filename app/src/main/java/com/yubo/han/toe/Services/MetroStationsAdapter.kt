@@ -82,5 +82,4 @@ class MetroStationsAdapter(private var context: Context, private var stationList
         this.stationList = filterStations
         notifyDataSetChanged()
     }
-
 }
