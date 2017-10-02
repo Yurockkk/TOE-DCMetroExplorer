@@ -64,7 +64,9 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
         })
 
         favorite_landmark_button.setOnClickListener(View.OnClickListener {
-            toast("No favorite landmarks")
+            //toast("No favorite landmarks")
+            val favoriteIntent = Intent(this, LandmarksActivity::class.java)
+            startActivity(favoriteIntent)
         })
     }
 
