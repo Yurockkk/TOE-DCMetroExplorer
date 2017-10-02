@@ -39,7 +39,7 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
     }
 
     fun initUI(){
-        location_test_button.setOnClickListener(View.OnClickListener {
+        near_station_button.setOnClickListener(View.OnClickListener {
 
             val permissionCheck = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
@@ -49,6 +49,10 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
                 //get location permission, start to detect location
 //                mLocationDetector.getDeviceLastLocation()
                 mLocationDetector.getDeviceLocationUpdate()
+
+                mLocationDetector.getDeviceLastLocation()
+
+
             }else{
                 //TODO: maybe popup a dialog to tell user we need the permission to use 'near station' function?
                 Log.i(LOG_TAG, "ask user for location permission!")
@@ -56,12 +60,6 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
             }
 
 
-        })
-
-        // Click select station button
-        near_station_button.setOnClickListener(View.OnClickListener {
-            val nearStationIntent = Intent(this,LandmarksActivity::class.java)
-            startActivity(nearStationIntent)
         })
 
         // Click select station button
@@ -146,6 +144,10 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
     //LocationDetectCompletedListener implementation
 
     override fun locationDetected(location: Location) {
+
+        val locatiionTestIntent = Intent(this, LandmarksActivity::class.java)
+        locatiionTestIntent.putExtra("location", location)
+        startActivity(locatiionTestIntent)
 
         Log.i(LOG_TAG,"location detected")
 

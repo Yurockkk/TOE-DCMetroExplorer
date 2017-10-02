@@ -17,12 +17,6 @@
         android:layout_marginBottom="40dp"/>
 
     <Button
-        android:id="@+id/location_test_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="location service test"/>
-
-    <Button
         android:id="@+id/near_station_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +31,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/favorite_landmark_button_text"/>
-
-
 
 </LinearLayout>

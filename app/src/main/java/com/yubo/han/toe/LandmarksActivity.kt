@@ -1,6 +1,7 @@
 package com.yubo.han.toe
 
 import android.content.Intent
+import android.location.Location
 import com.yubo.han.toe.Services.FetchLandmarksManager
 import com.yubo.han.toe.Services.LandmarksAdapter
 import com.yubo.han.toe.model.Landmarks
@@ -15,6 +16,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.Toolbar
 import com.squareup.picasso.Picasso
 import com.yubo.han.toe.Services.FetchMetroStationsManager
+import com.yubo.han.toe.Services.LocationDetector
 import com.yubo.han.toe.model.MetroStations
 import com.yubo.han.toe.model.NearMetroStations
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
@@ -24,11 +26,9 @@ import kotlinx.android.synthetic.main.row_landmarks.view.*
 import kotlinx.android.synthetic.main.row_metro_station.*
 import org.jetbrains.anko.toast
 
-class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener, FetchMetroStationsManager.NearMetroSearchCompletionListener {
+class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener,
+                            FetchMetroStationsManager.NearMetroSearchCompletionListener{
     private val LOG_TAG = "LandmarksActivity"
-
-    private var curLat = 38.898955.toFloat()
-    private var curLon = (-77.042447).toFloat()
 
     lateinit var mFetchLandmarksManager: FetchLandmarksManager
     lateinit var mFetchMetroStationsManager: FetchMetroStationsManager
@@ -39,8 +39,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // Click landmark item listener
     var onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
         override fun onItemClick(view: View, landmarkData: Landmarks) {
-            //Toast.makeText(this@LandmarksActivity, "Clicked " + landmarkData.latitude + ": " + view.landmarkName.text, Toast.LENGTH_SHORT).show()
-
             // Direct to LandmarkDetail Activity, pass landmark data to the activity
             val landmarkDetailIntent = Intent(this@LandmarksActivity,LandmarkDetailActivity::class.java)
             landmarkDetailIntent.putExtra("landmarkDetail", landmarkData)
@@ -52,26 +50,33 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
-        //Obtain stationData from station intent
+        //Obtain intent from station intent and location intent
         val stationData = intent.getParcelableExtra<MetroStations>("stationData")
+        val locationData = intent.getParcelableExtra<Location>("location")
+
+
         if (stationData != null) {// From MetroStationActivity
             // Set member variable
             val metroLat = stationData.latitude
             val metroLon = stationData.longitude
             val stationName = stationData.name
 
+            // Display the station name in the app bar
             landmark_toolbar_text.text = stationName
 
             // Query and load landmarks data from yelp api
             loadYelp(metroLat, metroLon)
         }
 
-        else {// From the nearest station intent
-            // Get location coordinates---TODO
-
+        else if (locationData != null) {// From the nearest station intent
+            // Get location coordinates
+            val curLat = locationData.latitude.toFloat()
+            val curLon = locationData.longitude.toFloat()
 
             // Search the nearest station
             queryNearStations(curLat, curLon)
+        } else {
+            // Favorite Landmark---TODO
         }
 
         // Set up action bar
@@ -118,8 +123,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         landmark_toolbar_text.text = nearMetro.name
 
         loadYelp(nearMetro.latitude, nearMetro.longitude)
-
-
     }
     // If failed to get the nearest metro station
     override fun nearMetroNotLoaded() {

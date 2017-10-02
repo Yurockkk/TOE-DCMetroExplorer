@@ -8,9 +8,6 @@ import android.util.Log
 import com.google.android.gms.location.*
 
 
-/**
- * Created by han on 9/25/17.
- */
 class LocationDetector(val context: Context) {
 
     private val LOG_TAG = "LocationDetector"

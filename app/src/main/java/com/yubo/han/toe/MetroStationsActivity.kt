@@ -39,8 +39,6 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
     // Click landmark item listener
     var onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
         override fun onItemClick(view: View, stationData: MetroStations) {
-            //Toast.makeText(this@MetroStationsActivity, "Clicked " + stationData.latitude + ": " + view.stationName.text, Toast.LENGTH_SHORT).show()
-
             // Direct to LandmarkActivity, pass station data to the activity
             val landmarksIntent = Intent(this@MetroStationsActivity,LandmarksActivity::class.java)
             landmarksIntent.putExtra("stationData", stationData)
