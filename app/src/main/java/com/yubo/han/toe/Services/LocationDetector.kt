@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import android.location.LocationListener
-import android.location.LocationManager
 import android.util.Log
 import com.google.android.gms.location.*
-
 
 
 /**
@@ -65,14 +63,19 @@ class LocationDetector(val context: Context) {
                     locationDetectCompletedListener?.onLocationChanged(location)
                 }
             }
+
+
         }
 
 
-        //createLocationRequest
-        val mLocationRequest = LocationRequest()
-        mLocationRequest.interval = 10000
-        mLocationRequest.fastestInterval = 5000
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        var mLocationRequest = LocationRequest()
+        mLocationRequest
+                .setInterval(10000)
+                .setFastestInterval(5000)
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setNumUpdates(1)
+                .setExpirationDuration(10000)
+        //TODO: need to handle expiration callback?
 
         //create a LocationSettingsRequest.Builder and add mLocationRequest to it
         val builder = LocationSettingsRequest.Builder()
@@ -82,18 +85,20 @@ class LocationDetector(val context: Context) {
         val client = LocationServices.getSettingsClient(context)
         val task = client.checkLocationSettings(builder.build())
 
+
         mFusedLocationClient.requestLocationUpdates(mLocationRequest,mLocationCallback,null)
 
     }
 
     fun stopLocationUpdates(){
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback)
-    }
 
-//    @SuppressLint("MissingPermission")
-//    fun getDeviceLocation2(){
-//        var  locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0L,0F,locationDetectCompletedListener)
-//
-//    }
+        try{
+            mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
+
+        }catch (e:UninitializedPropertyAccessException){
+            // haven't been init
+        }
+
+    }
+    
 }
