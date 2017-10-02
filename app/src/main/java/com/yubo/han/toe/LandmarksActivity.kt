@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_landmark_detail.*
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import kotlinx.android.synthetic.main.row_landmarks.view.*
+import kotlinx.android.synthetic.main.row_metro_station.*
 import org.jetbrains.anko.toast
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener {
@@ -26,6 +27,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     private var latitude = 38.9.toFloat()
     private var longitude = (-77.051825).toFloat()
+    private var stationName = "foggy bottom"
 
     lateinit var fetchLandmarksManager: FetchLandmarksManager
     lateinit private var landmarkAdapter: LandmarksAdapter
@@ -47,15 +49,17 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
-        // Setup too bar
-        setSupportActionBar(landmarkToolbar)
-
-
         //Obtain stationData from intent
         val stationData = intent.getParcelableExtra<MetroStations>("stationData")
         // Set member variable
         latitude = stationData.latitude
         longitude = stationData.longitude
+        stationName = stationData.name
+
+
+        // Setup tool bar
+        landmark_toolbar_text.text = stationName
+        setSupportActionBar(landmarkToolbar)
 
 
         // Query and load landmarks data from yelp api
