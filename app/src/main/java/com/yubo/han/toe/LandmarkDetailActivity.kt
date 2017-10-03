@@ -2,11 +2,15 @@ package com.yubo.han.toe
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.yubo.han.toe.model.Landmarks
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
 import kotlinx.android.synthetic.main.row_landmarks.view.*
+import android.content.Intent
+import android.net.Uri
+
 
 class LandmarkDetailActivity : AppCompatActivity() {
 
@@ -26,6 +30,14 @@ class LandmarkDetailActivity : AppCompatActivity() {
         val url = landmarkData.imageUrl
         landmarkDetailNameText.setText(name)
         Picasso.with(this).load(url).into(landmarkImageView)
+
+        googleBtn.setOnClickListener(View.OnClickListener {
+
+            val gmmIntentUri = Uri.parse("google.navigation:q=38.897376, -77.036602")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.`package` = "com.google.android.apps.maps"
+            startActivity(mapIntent)
+        })
 
     }
 }
