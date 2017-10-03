@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_vertical|center_horizontal"
-    tools:context="com.yubo.han.toe.MenuActivity">
+    tools:context="com.yubo.han.toe.activity.MenuActivity">
 
     <ImageView
         android:id="@+id/app_name_image"

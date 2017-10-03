@@ -1,15 +1,14 @@
-package com.yubo.han.toe
+package com.yubo.han.toe.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.yubo.han.toe.model.Landmarks
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
-import kotlinx.android.synthetic.main.row_landmarks.view.*
 import android.content.Intent
 import android.net.Uri
+import com.yubo.han.toe.R
 
 
 class LandmarkDetailActivity : AppCompatActivity() {

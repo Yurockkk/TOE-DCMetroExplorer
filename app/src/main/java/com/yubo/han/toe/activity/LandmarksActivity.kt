@@ -1,4 +1,4 @@
-package com.yubo.han.toe
+package com.yubo.han.toe.activity
 
 import android.content.Intent
 import android.location.Location
@@ -9,21 +9,14 @@ import com.yubo.han.toe.model.Landmarks
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.util.Log
-import android.widget.Toast
 
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.support.v7.widget.Toolbar
-import com.squareup.picasso.Picasso
+import com.yubo.han.toe.R
 import com.yubo.han.toe.Services.FetchMetroStationsManager
-import com.yubo.han.toe.Services.LocationDetector
 import com.yubo.han.toe.model.MetroStations
 import com.yubo.han.toe.model.NearMetroStations
-import kotlinx.android.synthetic.main.activity_landmark_detail.*
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
-import kotlinx.android.synthetic.main.row_landmarks.view.*
-import kotlinx.android.synthetic.main.row_metro_station.*
 import org.jetbrains.anko.toast
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener,
@@ -40,7 +33,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     var onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
         override fun onItemClick(view: View, landmarkData: Landmarks) {
             // Direct to LandmarkDetail Activity, pass landmark data to the activity
-            val landmarkDetailIntent = Intent(this@LandmarksActivity,LandmarkDetailActivity::class.java)
+            val landmarkDetailIntent = Intent(this@LandmarksActivity, LandmarkDetailActivity::class.java)
             landmarkDetailIntent.putExtra("landmarkDetail", landmarkData)
             startActivity(landmarkDetailIntent)
         }

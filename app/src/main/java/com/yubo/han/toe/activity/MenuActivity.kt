@@ -1,4 +1,4 @@
-package com.yubo.han.toe
+package com.yubo.han.toe.activity
 
 import android.Manifest
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
+import com.yubo.han.toe.R
 import kotlinx.android.synthetic.main.activity_menu.*
 import com.yubo.han.toe.Services.LocationDetector
 import org.jetbrains.anko.toast
@@ -64,7 +65,7 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
         // Click select station button
         select_station_button.setOnClickListener(View.OnClickListener {
-            val metroStationIntent = Intent(this,MetroStationsActivity::class.java)
+            val metroStationIntent = Intent(this, MetroStationsActivity::class.java)
             startActivity(metroStationIntent)
         })
 

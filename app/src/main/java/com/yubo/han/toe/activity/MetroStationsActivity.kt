@@ -1,4 +1,4 @@
-package com.yubo.han.toe
+package com.yubo.han.toe.activity
 
 import android.content.Intent
 import com.yubo.han.toe.Services.FetchMetroStationsManager
@@ -7,21 +7,16 @@ import com.yubo.han.toe.model.MetroStations
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.support.v7.widget.Toolbar
 import com.yubo.han.toe.Services.MetroStationsAdapter
 
 import kotlinx.android.synthetic.main.activity_metro_stations.*
 
 import org.jetbrains.anko.toast
-import android.support.v4.view.MenuItemCompat
-import android.support.v7.widget.SearchView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
-
-import kotlinx.android.synthetic.main.row_metro_station.view.*
+import com.yubo.han.toe.R
 
 
 class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsSearchCompletedListener {
@@ -40,7 +35,7 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
     var onItemClickListener = object : MetroStationsAdapter.OnItemClickListener {
         override fun onItemClick(view: View, stationData: MetroStations) {
             // Direct to LandmarkActivity, pass station data to the activity
-            val landmarksIntent = Intent(this@MetroStationsActivity,LandmarksActivity::class.java)
+            val landmarksIntent = Intent(this@MetroStationsActivity, LandmarksActivity::class.java)
             landmarksIntent.putExtra("stationData", stationData)
             startActivity(landmarksIntent)
         }
