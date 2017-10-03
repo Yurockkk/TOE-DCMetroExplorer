@@ -31,9 +31,12 @@ class LandmarkDetailActivity : AppCompatActivity() {
         landmarkDetailNameText.setText(name)
         Picasso.with(this).load(url).into(landmarkImageView)
 
+        // get lat & lon
+        var lat = landmarkData.latitude
+        var lon = landmarkData.longitude
         googleBtn.setOnClickListener(View.OnClickListener {
 
-            val gmmIntentUri = Uri.parse("google.navigation:q=38.897376, -77.036602")
+            val gmmIntentUri = Uri.parse("google.navigation:q=$lat, $lon")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.`package` = "com.google.android.apps.maps"
             startActivity(mapIntent)
