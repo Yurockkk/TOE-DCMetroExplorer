@@ -35,7 +35,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         var lon = landmarkData.longitude
         googleBtn.setOnClickListener(View.OnClickListener {
 
-            val gmmIntentUri = Uri.parse("google.navigation:q=$lat, $lon")
+            val gmmIntentUri = Uri.parse("google.navigation:q=$lat, $lon&mode=w")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.`package` = "com.google.android.apps.maps"
             startActivity(mapIntent)
