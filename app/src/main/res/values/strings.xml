@@ -5,4 +5,6 @@
     <string name="favorite_landmark_button_text">favorite landmarks</string>
     <string name="action_search">Search metro stations...</string>
     <string name="near_station_test_button_text">near station test</string>
+    <string name="add_to_favorite">add to favorite</string>
+    <string name="share">share</string>
 </resources>
