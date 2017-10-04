@@ -4,14 +4,14 @@
 
     <item android:title="@string/add_to_favorite"
         android:icon="@android:drawable/ic_menu_save"
-        android:onClick="addLandmarkPress"
-        compat:showAsAction="always"
+        android:onClick="addLandmarkPressed"
+        compat:showAsAction="ifRoom"
         />
 
     <item android:title="@string/share"
         android:icon="@android:drawable/ic_menu_share"
-        android:onClick="sharePress"
-        compat:showAsAction="always"
+        android:onClick="sharePressed"
+        compat:showAsAction="ifRoom"
         />
 
 </menu>

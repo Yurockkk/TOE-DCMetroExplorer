@@ -8,7 +8,10 @@ import com.yubo.han.toe.model.Landmarks
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
 import android.content.Intent
 import android.net.Uri
+import android.view.Menu
+import android.view.MenuItem
 import com.yubo.han.toe.R
+import org.jetbrains.anko.toast
 
 
 class LandmarkDetailActivity : AppCompatActivity() {
@@ -41,5 +44,18 @@ class LandmarkDetailActivity : AppCompatActivity() {
             startActivity(mapIntent)
         })
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_landmarks_detail, menu)
+        return true
+    }
+
+    fun addLandmarkPressed(item: MenuItem){
+        toast("addLandmarkPressed")
+    }
+
+    fun sharePressed(item: MenuItem){
+        toast("sharePressed")
     }
 }
