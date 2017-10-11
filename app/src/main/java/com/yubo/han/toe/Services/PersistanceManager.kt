@@ -24,7 +24,11 @@ class PersistanceManager(context: Context) {
     fun saveLandmark(landmark: Landmarks){
 
         val landmarks = fetchLandmarks().toMutableList()
-        landmarks.add(landmark)
+
+        //        landmarks.add(landmark)
+
+        //check if the landmark has already been added to the favorite
+        if (landmarks.map { lm -> lm.name }.contains(landmark.name)) landmarks.remove(landmark) else landmarks.add(landmark)
 
         val editor = sharedPreferences.edit()
         editor.putString(Constants.LANDMARKS_PREF_KEY,Gson().toJson(landmarks))
