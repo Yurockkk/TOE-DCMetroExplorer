@@ -13,6 +13,7 @@ import android.view.View
 import android.support.v7.widget.StaggeredGridLayoutManager
 import com.yubo.han.toe.R
 import com.yubo.han.toe.Services.FetchMetroStationsManager
+import com.yubo.han.toe.Services.PersistanceManager
 import com.yubo.han.toe.model.MetroStations
 import com.yubo.han.toe.model.NearMetroStations
 
@@ -27,6 +28,8 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     lateinit var mFetchMetroStationsManager: FetchMetroStationsManager
     lateinit private var landmarkAdapter: LandmarksAdapter
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
+    lateinit var persistanceManager: PersistanceManager
+
 
 
     // Click landmark item listener
@@ -42,6 +45,8 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
+
+        persistanceManager = PersistanceManager(this)
 
         //Obtain intent from station intent and location intent
         val stationData = intent.getParcelableExtra<MetroStations>("stationData")
@@ -70,6 +75,8 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             queryNearStations(curLat, curLon)
         } else {
             // Favorite Landmark---TODO
+            var favLandmarks = persistanceManager.fetchLandmarks()
+            displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
         }
 
         // Set up action bar

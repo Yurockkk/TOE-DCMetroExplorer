@@ -73,12 +73,12 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
         // Click favorite button
         favorite_landmark_button.setOnClickListener(View.OnClickListener {
-            toast("No favorite landmarks")
-            var favLandmarks = persistanceManager.fetchLandmarks()
-            Log.i(LOG_TAG,"size if favLandmarks: ${favLandmarks.size}")
+//            toast("No favorite landmarks")
+//            var favLandmarks = persistanceManager.fetchLandmarks()
+//            Log.i(LOG_TAG,"size if favLandmarks: ${favLandmarks.size}")
 //            Log.i(LOG_TAG,favLandmarks.toString())
-//            val favoriteIntent = Intent(this, LandmarksActivity::class.java)
-//            startActivity(favoriteIntent)
+            val favoriteIntent = Intent(this, LandmarksActivity::class.java)
+            startActivity(favoriteIntent)
         })
     }
 
