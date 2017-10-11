@@ -13,16 +13,17 @@ import android.view.View
 import com.yubo.han.toe.R
 import kotlinx.android.synthetic.main.activity_menu.*
 import com.yubo.han.toe.Services.LocationDetector
+import com.yubo.han.toe.Services.PersistanceManager
 import org.jetbrains.anko.toast
 
 class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectCompletedListener {
-
-
 
     val LOG_TAG = "MenuActivity"
     val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 666
     //lateinit var mFusedLocationClient: Any
     lateinit var mLocationDetector: LocationDetector
+    lateinit var persistanceManager: PersistanceManager
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
         mLocationDetector = LocationDetector(this)
         //register itself to metroStationsCompletedListener
         mLocationDetector.locationDetectCompletedListener = this
+        persistanceManager = PersistanceManager(this)
 
         initUI()
 
@@ -73,6 +75,9 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
         // Click favorite button
         favorite_landmark_button.setOnClickListener(View.OnClickListener {
             toast("No favorite landmarks")
+            var favLandmarks = persistanceManager.fetchLandmarks()
+            Log.i(LOG_TAG,"size if favLandmarks: ${favLandmarks.size}")
+//            Log.i(LOG_TAG,favLandmarks.toString())
 //            val favoriteIntent = Intent(this, LandmarksActivity::class.java)
 //            startActivity(favoriteIntent)
         })

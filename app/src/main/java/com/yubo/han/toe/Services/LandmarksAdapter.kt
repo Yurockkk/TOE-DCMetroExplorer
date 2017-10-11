@@ -1,6 +1,7 @@
 package com.yubo.han.toe.Services
 
 import android.content.Context
+import android.net.Uri
 import android.support.v7.widget.RecyclerView
 
 
@@ -34,7 +35,7 @@ class LandmarksAdapter(private var context: Context,private var landmarkList: Ar
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val landmark = landmarkList.get(position)
         holder.itemView.landmarkName.text = landmark.name
-        Picasso.with(context).load(landmark.imageUrl).into(holder.itemView.landmarkImage)
+        Picasso.with(context).load(Uri.parse(landmark.imageString)).into(holder.itemView.landmarkImage)
 
     }
 

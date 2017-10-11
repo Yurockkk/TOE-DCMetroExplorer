@@ -8,4 +8,4 @@ import kotlinx.android.parcel.Parcelize
  * Created by han on 9/27/17.
  */
 @Parcelize
-data class Landmarks (val name: String, val imageUrl: Uri, val latitude: Float, val longitude: Float): Parcelable
+data class Landmarks (val name: String, val imageString: String, val latitude: Float, val longitude: Float): Parcelable

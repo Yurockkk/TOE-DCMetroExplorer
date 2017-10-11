@@ -8,13 +8,19 @@ import com.yubo.han.toe.model.Landmarks
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.yubo.han.toe.R
+import com.yubo.han.toe.Services.PersistanceManager
 import org.jetbrains.anko.toast
 
 
 class LandmarkDetailActivity : AppCompatActivity() {
+
+    private val LOG_TAG = "LandmarkDetailActivity"
+    lateinit var persistanceManager: PersistanceManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +28,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
         //Obtain landmarkData from intent
         val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
+        Log.i(LOG_TAG,landmarkData.name)
 
         landmarkDetailToolbar.title = landmarkData.name
         // Set up tool bar
@@ -29,9 +36,9 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
         // Set member variable
         val name = landmarkData.name
-        val url = landmarkData.imageUrl
+        val url = landmarkData.imageString
         landmarkDetailNameText.setText(name)
-        Picasso.with(this).load(url).into(landmarkImageView)
+        Picasso.with(this).load(Uri.parse(url)).into(landmarkImageView)
 
         // get lat & lon
         var lat = landmarkData.latitude
@@ -44,6 +51,8 @@ class LandmarkDetailActivity : AppCompatActivity() {
             startActivity(mapIntent)
         })
 
+        persistanceManager = PersistanceManager(this)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,6 +62,12 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
     fun addLandmarkPressed(item: MenuItem){
         toast("addLandmarkPressed")
+        val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
+        Log.i(LOG_TAG,"landmark.name= ${landmarkData.name}, landmark.imageString= ${landmarkData.imageString}, landmark.lat = ${landmarkData.latitude}, landmark.lon = ${landmarkData.longitude}")
+        val favLandmark = Landmarks(landmarkData.name,landmarkData.imageString,landmarkData.latitude,landmarkData.longitude)
+        //Log.i(LOG_TAG, "save landmark data: ${landmarkData.toString()}")
+        persistanceManager.saveLandmark(favLandmark)
+
     }
 
     fun sharePressed(item: MenuItem){

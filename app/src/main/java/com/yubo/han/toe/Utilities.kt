@@ -28,13 +28,13 @@ object Utilities {
 
                 // Get all json elements
                 val name = json.get("name").asString
-                val imageUrl = Uri.parse(json.get("image_url").asString)
+                val imageString = json.get("image_url").asString
 
                 val coordinates = json.get("coordinates")
                 val latitude = coordinates.asJsonObject.get("latitude").asFloat
                 val longitude = coordinates.asJsonObject.get("longitude").asFloat
 
-                val landmark = Landmarks(name, imageUrl, latitude, longitude)
+                val landmark = Landmarks(name, imageString, latitude, longitude)
                 landmarksList.add(landmark)
             }
 
