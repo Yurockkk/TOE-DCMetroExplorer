@@ -50,10 +50,9 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
             if(permissionCheck == PackageManager.PERMISSION_GRANTED){
                 //get location permission, start to detect location
-//                mLocationDetector.getDeviceLastLocation()
                 mLocationDetector.getDeviceLocationUpdate()
 
-                mLocationDetector.getDeviceLastLocation()
+//                mLocationDetector.getDeviceLastLocation()
 
 
             }else{
@@ -164,9 +163,16 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
         Log.i(LOG_TAG, "location not detected")
     }
 
-    override fun onLocationChanged(p0: Location?) {
-        Log.i(LOG_TAG, "in onLocationChanged, ${p0.toString()}")
-        toast(p0.toString())
+    override fun onLocationChanged(location: Location?) {
+        Log.i(LOG_TAG, "in onLocationChanged, ${location.toString()}")
+        if(location != null){
+            val locatiionIntent = Intent(this, LandmarksActivity::class.java)
+            locatiionIntent.putExtra("location", location)
+            startActivity(locatiionIntent)
+        }else{      //error handler: if we cannot get location update, then we call 'getDeviceLastLocation()'
+            mLocationDetector.getDeviceLastLocation()
+        }
+        toast(location.toString())
     }
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
         Log.i(LOG_TAG, "in onStatusChanged, ${p0.toString()}")
