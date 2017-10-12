@@ -63,8 +63,8 @@ class LandmarkDetailActivity : AppCompatActivity() {
     fun addLandmarkPressed(item: MenuItem){
         toast("addLandmarkPressed")
         val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
-        Log.i(LOG_TAG,"landmark.name= ${landmarkData.name}, landmark.imageString= ${landmarkData.imageString}, landmark.lat = ${landmarkData.latitude}, landmark.lon = ${landmarkData.longitude}")
-        val favLandmark = Landmarks(landmarkData.name,landmarkData.imageString,landmarkData.latitude,landmarkData.longitude)
+//        Log.i(LOG_TAG,"landmark.name= ${landmarkData.name}, landmark.imageString= ${landmarkData.imageString}, landmark.lat = ${landmarkData.latitude}, landmark.lon = ${landmarkData.longitude}")
+        val favLandmark = landmarkData
         //Log.i(LOG_TAG, "save landmark data: ${landmarkData.toString()}")
         persistanceManager.saveLandmark(favLandmark)
 
