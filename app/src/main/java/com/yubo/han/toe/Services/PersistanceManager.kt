@@ -47,6 +47,7 @@ class PersistanceManager(context: Context) {
 //            val landmarksType = object : TypeToken<MutableList<Landmarks>>() {}.type
             val landmarksType = object : TypeToken<MutableList<Landmarks>>() {}.type
 //            return Gson().fromJson(landmarksJson, landmarksType)
+            Log.e(LOG_TAG, landmarksJson)
             return Gson().fromJson(landmarksJson,landmarksType)
         }
     }

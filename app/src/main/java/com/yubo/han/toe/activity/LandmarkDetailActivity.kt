@@ -20,6 +20,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
     private val LOG_TAG = "LandmarkDetailActivity"
     lateinit var persistanceManager: PersistanceManager
+    lateinit var landmarkData: Landmarks
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_landmark_detail)
 
         //Obtain landmarkData from intent
-        val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
+        landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
         Log.i(LOG_TAG,landmarkData.name)
 
         landmarkDetailToolbar.title = landmarkData.name
@@ -62,11 +63,11 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
     fun addLandmarkPressed(item: MenuItem){
         toast("addLandmarkPressed")
-        val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
+//        val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
 //        Log.i(LOG_TAG,"landmark.name= ${landmarkData.name}, landmark.imageString= ${landmarkData.imageString}, landmark.lat = ${landmarkData.latitude}, landmark.lon = ${landmarkData.longitude}")
-        val favLandmark = landmarkData
+//        val favLandmark = landmarkData
         //Log.i(LOG_TAG, "save landmark data: ${landmarkData.toString()}")
-        persistanceManager.saveLandmark(favLandmark)
+        persistanceManager.saveLandmark(landmarkData)
 
     }
 

@@ -37,7 +37,7 @@ object Utilities {
             for (i in 0..landmarksArray.size() - 1) {
                 val json = landmarksArray.get(i).asJsonObject
 
-                // Get all json elements
+                // Get all json elements of yelp API
                 val name = json.get("name").asString
                 val imageString = json.get("image_url").asString
 
@@ -45,7 +45,20 @@ object Utilities {
                 val latitude = coordinates.asJsonObject.get("latitude").asFloat
                 val longitude = coordinates.asJsonObject.get("longitude").asFloat
 
-                val landmark = Landmarks(name, imageString, latitude, longitude)
+                val yelpUrl = json.get("url").asString
+                val reviewCount = json.get("review_count").asInt
+                val distance = json.get("distance").asFloat
+
+                val location = json.get("location").asJsonObject
+                val address = location.getAsJsonArray("display_address")
+                val displayAddress = StringBuilder()
+
+                for (line in address) {
+                    displayAddress.append(line.asString)
+                }
+
+                val landmark = Landmarks(name, imageString, latitude, longitude, yelpUrl, reviewCount,
+                                        displayAddress.toString(), distance)
                 landmarksList.add(landmark)
             }
 
