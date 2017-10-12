@@ -75,6 +75,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             queryNearStations(curLat, curLon)
         } else {
             // Favorite Landmark---TODO
+            landmark_toolbar_text.text = getString(R.string.fav_landmarks)
             var favLandmarks = persistanceManager.fetchLandmarks()
             displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
         }

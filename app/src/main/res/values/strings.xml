@@ -7,4 +7,5 @@
     <string name="near_station_test_button_text">near station test</string>
     <string name="add_to_favorite">add to favorite</string>
     <string name="share">share</string>
+    <string name="fav_landmarks">Favorite Landmarks</string>
 </resources>
