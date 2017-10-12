@@ -2,16 +2,15 @@ package com.yubo.han.toe.activity
 
 import android.content.Intent
 import android.location.Location
-import com.yubo.han.toe.Services.FetchLandmarksManager
-import com.yubo.han.toe.Services.LandmarksAdapter
-import com.yubo.han.toe.model.Landmarks
-
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-
 import android.support.v7.widget.StaggeredGridLayoutManager
+
 import com.yubo.han.toe.R
+import com.yubo.han.toe.Services.FetchLandmarksManager
+import com.yubo.han.toe.Services.LandmarksAdapter
+import com.yubo.han.toe.model.Landmarks
 import com.yubo.han.toe.Services.FetchMetroStationsManager
 import com.yubo.han.toe.Services.PersistanceManager
 import com.yubo.han.toe.model.MetroStations
@@ -19,8 +18,6 @@ import com.yubo.han.toe.model.NearMetroStations
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import org.jetbrains.anko.toast
-import android.widget.ProgressBar
-import kotlinx.android.synthetic.main.activity_metro_stations.*
 
 
 
@@ -82,9 +79,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             landmark_toolbar_text.text = getString(R.string.fav_landmarks)
             var favLandmarks = persistanceManager.fetchLandmarks()
 
-            // Stop the progress bar once load the data
-            landmark_indeterminate_bar.visibility = View.GONE
-
             displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
         }
 
@@ -116,9 +110,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // If successfully get the landmarks
     override fun landmarkLoaded(landmarkList:ArrayList<Landmarks>) {
 
-        // Stop the progress bar once load the data
-        landmark_indeterminate_bar.visibility = View.GONE
-
         displayLandmarkList(landmarkList)
     }
 
@@ -144,6 +135,9 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     // Display the queried landmarks in RecyclerView
     fun displayLandmarkList(landmarkList:ArrayList<Landmarks>) {
+
+        // Stop the progress bar once load the data
+        landmark_indeterminate_bar.visibility = View.GONE
 
         staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         landmarkViewList.layoutManager = staggeredLayoutManager
