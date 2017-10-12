@@ -81,6 +81,10 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             // Favorite Landmark---TODO
             landmark_toolbar_text.text = getString(R.string.fav_landmarks)
             var favLandmarks = persistanceManager.fetchLandmarks()
+
+            // Stop the progress bar once load the data
+            landmark_indeterminate_bar.visibility = View.GONE
+
             displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
         }
 
