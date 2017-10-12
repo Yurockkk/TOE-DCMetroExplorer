@@ -19,6 +19,10 @@ import com.yubo.han.toe.model.NearMetroStations
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import org.jetbrains.anko.toast
+import android.widget.ProgressBar
+import kotlinx.android.synthetic.main.activity_metro_stations.*
+
+
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener,
                             FetchMetroStationsManager.NearMetroSearchCompletionListener{
@@ -107,7 +111,9 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     // If successfully get the landmarks
     override fun landmarkLoaded(landmarkList:ArrayList<Landmarks>) {
-        //toast(landmarkList.toString())
+
+        // Stop the progress bar once load the data
+        landmark_indeterminate_bar.visibility = View.GONE
 
         displayLandmarkList(landmarkList)
     }

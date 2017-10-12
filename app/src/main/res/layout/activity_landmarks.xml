@@ -21,7 +21,13 @@
 
     </android.support.v7.widget.Toolbar>
 
-
+    <ProgressBar
+        android:id="@+id/landmark_indeterminate_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/landmarkViewList"

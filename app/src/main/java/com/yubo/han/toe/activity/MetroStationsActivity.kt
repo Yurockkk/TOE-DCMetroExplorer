@@ -72,6 +72,9 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
 
         this.stationList = stationList
 
+        // Stop the progress bar once load the data
+        metro_indeterminate_bar.visibility = View.GONE
+
         displayStationList()
 
     }

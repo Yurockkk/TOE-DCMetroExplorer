@@ -1,13 +1,11 @@
 package com.yubo.han.toe.Services
 
 import android.content.Context
-import android.provider.SyncStateContract
 import android.util.Log
 import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
 import com.yubo.han.toe.Utilities
-import com.yubo.han.toe.model.Landmarks
 
 /**
  * Created by han on 9/25/17.
