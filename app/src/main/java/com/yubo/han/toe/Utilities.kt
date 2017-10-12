@@ -15,6 +15,17 @@ object Utilities {
 
     val LOG_TAG = "Utilities"
 
+    // Get Yelp token
+    fun parseTokenFromYelp(jsonobject: JsonObject): String {
+
+        val type = jsonobject.get("token_type").asString
+        val token = jsonobject.get("access_token").asString
+        val accessToken = type + " " + token
+
+        return accessToken
+    }
+
+
     // Get landmarks list from Jsonobject
     fun parseLandmarksFromJSON(jsonobject: JsonObject): ArrayList<Landmarks>? {
         val landmarksList = arrayListOf<Landmarks>()

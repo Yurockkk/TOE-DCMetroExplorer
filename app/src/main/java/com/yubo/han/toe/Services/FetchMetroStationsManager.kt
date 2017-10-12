@@ -23,6 +23,8 @@ class FetchMetroStationsManager(val context: Context) {
 
     var nearMetroSearchCompletionListener: NearMetroSearchCompletionListener? = null
 
+    lateinit var yelpAuthManager: YelpAuthManager
+
 
     interface MetroStationsSearchCompletedListener{
 
@@ -68,8 +70,13 @@ class FetchMetroStationsManager(val context: Context) {
 
     // Query near metro station from Yelp API
     fun queryYelpForNearMetro(latitude: Float, longitude: Float) {
+
+        //Get auth token from Yelp
+        yelpAuthManager = YelpAuthManager()
+        val accessToken = yelpAuthManager.getYelpToken(context)
+
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
-                .addHeader("Authorization", Constants.YELP_SEARCH_TOKEN)
+                .addHeader("Authorization", accessToken)
                 .addQuery("term", Constants.YELP_SEARCH_NEAR_METRO_TERM)
                 .addQuery("radius", Constants.YELP_SEARCH_NEAR_METRO_RADIUS.toString())
                 .addQuery("latitude", latitude.toString())

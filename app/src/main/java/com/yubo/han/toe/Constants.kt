@@ -4,10 +4,16 @@ package com.yubo.han.toe
  * Created by han on 9/26/17.
  */
 object Constants {
+    // Yelp token
+    val YELP_QUEST_TOKEN_URL = "https://api.yelp.com/oauth2/token"
+    val YELP_CLIENT_ID = "vndVTQH3KGcX4pRGO5Fgpw"
+    val YELP_CLIENT_SECRET = "JW8VLUQL9WAIRYmOV4TDJi3XpWJthbHKEjVrbgjAlcCwx97KO8XC6XaMsvlupsP8"
+    val YELP_GRANT_TYPE = "client_credentials"
+
+
     // Yelp search
     val YELP_SEARCH_TERM = "landmarks"
     val YELP_SEARCH_URL = "https://api.yelp.com/v3/businesses/search"
-    val YELP_SEARCH_TOKEN = "Bearer 7V8pfQGeJaRcSJHwizHuMJ_OMHuITa4DrO7ZXpTDCgv1CclbSkctHq0qtMi-jG5PkxIQ8ZoZuy_G0v338DFGw9qZMHNf4TQmugebOLIukFW8lL1uJTRzcySOMkTHWXYx"
     val YELP_JSON_MEMBER_NAME = "businesses"
     val YELP_SEARCH_RADIUS = 2500
     // Yelp search near metro station
