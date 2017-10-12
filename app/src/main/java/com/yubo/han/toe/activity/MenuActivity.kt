@@ -46,7 +46,7 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
             val permissionCheck = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
-            Log.i(LOG_TAG,"permissionCheck: $permissionCheck")
+//            Log.i(LOG_TAG,"permissionCheck: $permissionCheck")
 
             if(permissionCheck == PackageManager.PERMISSION_GRANTED){
                 //get location permission, start to detect location

@@ -15,7 +15,7 @@ object Utilities {
 
     val LOG_TAG = "Utilities"
 
-    // Get Yelp token
+    // Get Yelp access token from Json object
     fun parseTokenFromYelp(jsonobject: JsonObject): String {
 
         val type = jsonobject.get("token_type").asString
