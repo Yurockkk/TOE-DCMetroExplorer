@@ -1,7 +1,6 @@
 package com.yubo.han.toe.activity
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -16,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_menu.*
 import com.yubo.han.toe.Services.LocationDetector
 import com.yubo.han.toe.Services.PersistanceManager
 import org.jetbrains.anko.toast
-import android.net.ConnectivityManager
 import com.yubo.han.toe.Utilities
 
 
@@ -79,19 +77,11 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
         // Click favorite button
         favorite_landmark_button.setOnClickListener(View.OnClickListener {
-//            toast("No favorite landmarks")
-//            var favLandmarks = persistanceManager.fetchLandmarks()
-//            Log.i(LOG_TAG,"size if favLandmarks: ${favLandmarks.size}")
-//            Log.i(LOG_TAG,favLandmarks.toString())
             val favoriteIntent = Intent(this, LandmarksActivity::class.java)
             startActivity(favoriteIntent)
         })
     }
 
-//    private fun isNetworkAvailable(): Boolean {
-//        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//        return cm.activeNetworkInfo != null
-//    }
 
     override fun onResume() {
         super.onResume()
