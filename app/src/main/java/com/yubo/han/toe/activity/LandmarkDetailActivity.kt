@@ -39,8 +39,17 @@ class LandmarkDetailActivity : AppCompatActivity() {
         // Set member variable
         val name = landmarkData.name
         val url = landmarkData.imageString
-        landmarkDetailNameText.setText(name)
-        Picasso.with(this).load(Uri.parse(url)).into(landmarkImageView)
+        val address = landmarkData.address
+        val distance = "%.2f".format(landmarkData.distance) + " mi"
+        val yelpUrl = landmarkData.yelpUrl
+
+        landmarkDetail_name.setText(name)
+        landmarkDetail_address.setText(address)
+        landmarkDetail_distance.setText(distance)
+
+
+        Picasso.with(this).load(Uri.parse(url)).into(landmarkDetail_image)
+
 
         // get lat & lon
         var lat = landmarkData.latitude
@@ -52,6 +61,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
             mapIntent.`package` = "com.google.android.apps.maps"
             startActivity(mapIntent)
         })
+
 
         persistanceManager = PersistanceManager(this)
 
@@ -73,6 +83,20 @@ class LandmarkDetailActivity : AppCompatActivity() {
     }
 
     fun sharePressed(item: MenuItem){
-        toast("sharePressed")
+        val landmarkInfo = landmarkData.name + "\n" + landmarkData.address + "\n" + landmarkData.yelpUrl
+
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.setType("text/plain")
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT,  landmarkData.name)
+        shareIntent.putExtra(Intent.EXTRA_TEXT, landmarkInfo)
+
+        val title = resources.getString(R.string.share)
+        // Create intent to show chooser
+        val chooser = Intent.createChooser(shareIntent, title)
+
+        // Verify the intent will resolve to at least one activity
+        if (shareIntent.resolveActivity(getPackageManager()) != null) {
+        startActivity(chooser)
+        }
     }
 }

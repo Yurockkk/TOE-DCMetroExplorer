@@ -21,36 +21,99 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <RelativeLayout
+        android:id="@+id/landmarkDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_landmark_margin"
+        >
+
 
         <ImageView
-            android:id="@+id/landmarkImageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"/>
-
+            android:id="@+id/landmarkDetail_image"
+            android:layout_width="@dimen/landmarkDetail_image_width"
+            android:layout_height="@dimen/LandmarkDetail_image_height"
+            android:scaleType="centerCrop"
+            android:background="@drawable/img_landmark_placeholder"/>
 
         <TextView
-            android:id="@+id/landmarkDetailNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/landmarkDetail_name"
+            android:layout_marginLeft="@dimen/card_landmark_margin"
+            android:layout_toRightOf="@+id/landmarkDetail_image"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/landmarkImageView"
-            android:layout_marginLeft="16dp"/>
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/landmarkDetail_distance"
+            android:layout_marginLeft="@dimen/card_landmark_margin"
+            android:layout_marginTop="@dimen/card_landmark_margin"
+            android:layout_toRightOf="@+id/landmarkDetail_image"
+            android:layout_below="@+id/landmarkDetail_name"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/landmarkDetail_address"
+            android:layout_marginLeft="@dimen/card_landmark_margin"
+            android:layout_marginTop="@dimen/card_landmark_margin"
+            android:layout_toRightOf="@+id/landmarkDetail_image"
+            android:layout_below="@+id/landmarkDetail_distance"
+            />
+
+
+    </RelativeLayout>
+
+
+    <!--Yelp link-->
+    <LinearLayout
+        android:id="@+id/yelp_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_landmark_margin">
+
+        <ImageView
+            android:id="@+id/yelp_icon_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Explore more on Yelp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+    <!--Google direction-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/card_landmark_margin">
 
         <Button
             android:id="@+id/googleBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Google"
-            android:layout_alignParentBottom="true"/>
+            android:text="Google" />
 
-    </RelativeLayout>
+
+
+
+    </LinearLayout>
 
 
 
