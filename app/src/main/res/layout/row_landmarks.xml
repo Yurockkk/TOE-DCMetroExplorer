@@ -4,15 +4,10 @@
     android:id="@+id/landmarkCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/card_landmark_margin"
     card_view:cardCornerRadius="@dimen/card_corner_radius"
     card_view:cardElevation="@dimen/card_elevation">
 
-    <ImageView
-        android:id="@+id/landmarkImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop" />
     <LinearLayout
         android:id="@+id/landmarkHolder"
         android:layout_width="match_parent"
@@ -20,24 +15,42 @@
         android:background="?android:selectableItemBackground"
         android:orientation="horizontal" />
 
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/landmarkNameHolder"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_landmark_margin"
+        >
+
+
+        <ImageView
+            android:id="@+id/landmarkImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/img_landmark_placeholder"/>
 
         <TextView
-            android:id="@+id/landmarkName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="start"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white" />
+            android:id="@+id/landmarkName"
+            android:layout_marginLeft="@dimen/card_landmark_margin"
+            android:layout_toRightOf="@+id/landmarkImage"
+            android:layout_alignParentTop="true"
+            android:textSize="10sp"
+            />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/landmark_address"
+            android:layout_marginLeft="@dimen/card_landmark_margin"
+            android:layout_toRightOf="@+id/landmarkImage"
+            android:layout_below="@+id/landmarkName"
+            android:text = "address"
+            />
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

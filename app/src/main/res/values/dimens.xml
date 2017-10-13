@@ -6,7 +6,10 @@
     <dimen name="button_elevation">1dp</dimen>
     <dimen name="button_press_elevation">18dp</dimen>
     <dimen name="card_elevation">1dp</dimen>
+    <dimen name="card_landmark_margin">8dp</dimen>
     <dimen name="card_corner_radius">0dp</dimen>
+    <dimen name="landmark_image_width">100dp</dimen>
+    <dimen name="Landmark_image_height">200dp</dimen>
     <dimen name="activity_detail_left_margin">5dp</dimen>
     <dimen name="station_card_holder">80dp</dimen>
 </resources>
