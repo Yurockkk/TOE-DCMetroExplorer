@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 
 import com.yubo.han.toe.R
 import com.yubo.han.toe.Services.FetchLandmarksManager
@@ -30,7 +31,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     lateinit private var landmarkAdapter: LandmarksAdapter
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
     lateinit var persistanceManager: PersistanceManager
-
+    var from: Int = -1      //tell where is this activity get called    -1 -> undefined     1 -> from Select Station button     2 -> from Nearest Station button  3 -> from Favorite Landmark button
 
 
     // Click landmark item listener
@@ -55,6 +56,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
 
         if (stationData != null) {// From MetroStationActivity
+            from = 1
             // Set member variable
             val metroLat = stationData.latitude
             val metroLon = stationData.longitude
@@ -68,6 +70,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         }
 
         else if (locationData != null) {// From the nearest station intent
+            from = 2
             // Get location coordinates
             val curLat = locationData.latitude.toFloat()
             val curLon = locationData.longitude.toFloat()
@@ -76,10 +79,11 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             queryNearStations(curLat, curLon)
         } else {
             // Favorite Landmark---TODO
+            from = 3
             landmark_toolbar_text.text = getString(R.string.fav_landmarks)
-            var favLandmarks = persistanceManager.fetchLandmarks()
 
-            displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
+
+
         }
 
         // Set up action bar
@@ -129,6 +133,15 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // If failed to get the nearest metro station
     override fun nearMetroNotLoaded() {
         toast("No metro found near you")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(LOG_TAG, "onResume")
+        if(from == 3){
+            var favLandmarks = persistanceManager.fetchLandmarks()
+            displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
+        }
     }
 
 
