@@ -21,20 +21,27 @@ class PersistanceManager(context: Context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    fun saveLandmark(landmark: Landmarks){
+    fun saveLandmark(landmark: Landmarks): Boolean{
+
+        var save = false
 
         val landmarks = fetchLandmarks().toMutableList()
 
-        //        landmarks.add(landmark)
-
         //check if the landmark has already been added to the favorite
-        if (landmarks.map { lm -> lm.name }.contains(landmark.name)) landmarks.remove(landmark) else landmarks.add(landmark)
+        if (isFavorite(landmark)) {
+            landmarks.remove(landmark)
+        } else {
+            landmarks.add(landmark)
+            save = true
+        }
 
         val editor = sharedPreferences.edit()
         editor.putString(Constants.LANDMARKS_PREF_KEY,Gson().toJson(landmarks))
 
         editor.apply()
         Log.i(LOG_TAG,"landmarks size: ${landmarks.size}, content: ${landmarks.toString()}")
+
+        return save
     }
 
     fun fetchLandmarks(): List<Landmarks>{
@@ -52,4 +59,9 @@ class PersistanceManager(context: Context) {
         }
     }
 
+    fun isFavorite(landmark: Landmarks): Boolean{
+        val landmarks = fetchLandmarks().toMutableList()
+
+        return landmarks.map { lm -> lm.name }.contains(landmark.name)
+    }
 }

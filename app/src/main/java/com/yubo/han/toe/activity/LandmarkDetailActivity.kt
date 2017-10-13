@@ -46,9 +46,10 @@ class LandmarkDetailActivity : AppCompatActivity() {
         landmarkDetail_name.setText(name)
         landmarkDetail_address.setText(address)
         landmarkDetail_distance.setText(distance)
-
-
         Picasso.with(this).load(Uri.parse(url)).into(landmarkDetail_image)
+
+        // Favorite button
+        persistanceManager = PersistanceManager(this)
 
 
         // get lat & lon
@@ -61,25 +62,36 @@ class LandmarkDetailActivity : AppCompatActivity() {
             mapIntent.`package` = "com.google.android.apps.maps"
             startActivity(mapIntent)
         })
-
-
-        persistanceManager = PersistanceManager(this)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_landmarks_detail, menu)
+
+        // Check if the current landmarks saved or not, then display different layout
+        val isFavorite = persistanceManager.isFavorite(landmarkData)
+        if (isFavorite) {
+            menu?.getItem(0)?.setIcon(R.drawable.ic_favorite_white_24dp)
+        }
+        else {
+            menu?.getItem(0)?.setIcon(R.drawable.ic_favorite_border_white_24dp)
+        }
+
         return true
     }
 
     fun addLandmarkPressed(item: MenuItem){
-        toast("addLandmarkPressed")
-//        val landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
-//        Log.i(LOG_TAG,"landmark.name= ${landmarkData.name}, landmark.imageString= ${landmarkData.imageString}, landmark.lat = ${landmarkData.latitude}, landmark.lon = ${landmarkData.longitude}")
-//        val favLandmark = landmarkData
-        //Log.i(LOG_TAG, "save landmark data: ${landmarkData.toString()}")
-        persistanceManager.saveLandmark(landmarkData)
+//        toast("addLandmarkPressed")
 
+        val isSave = persistanceManager.saveLandmark(landmarkData)
+        if (isSave) {
+            toast("Landmark favorite")
+            item.setIcon(R.drawable.ic_favorite_white_24dp)
+        }
+
+        else {
+            toast("landmark unfavorite")
+            item.setIcon(R.drawable.ic_favorite_border_white_24dp)
+        }
     }
 
     fun sharePressed(item: MenuItem){

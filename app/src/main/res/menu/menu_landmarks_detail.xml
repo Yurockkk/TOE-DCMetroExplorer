@@ -3,7 +3,7 @@
     xmlns:compat="http://schemas.android.com/apk/res-auto">
 
     <item android:title="@string/add_to_favorite"
-        android:icon="@drawable/ic_favorite_black_48dp"
+        android:id="@+id/favorite_landmark"
         android:onClick="addLandmarkPressed"
         compat:showAsAction="ifRoom"
         />
