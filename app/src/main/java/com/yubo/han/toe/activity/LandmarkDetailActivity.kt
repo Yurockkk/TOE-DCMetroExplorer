@@ -55,7 +55,9 @@ class LandmarkDetailActivity : AppCompatActivity() {
         // get lat & lon
         var lat = landmarkData.latitude
         var lon = landmarkData.longitude
-        googleBtn.setOnClickListener(View.OnClickListener {
+
+        // Google directin link
+        google_link.setOnClickListener(View.OnClickListener {
 
             val gmmIntentUri = Uri.parse("google.navigation:q=$lat, $lon&mode=w")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
