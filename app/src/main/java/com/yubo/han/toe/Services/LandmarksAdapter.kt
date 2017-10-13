@@ -35,7 +35,12 @@ class LandmarksAdapter(private var context: Context,private var landmarkList: Ar
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val landmark = landmarkList.get(position)
         holder.itemView.landmarkName.text = landmark.name
+        holder.itemView.landmark_address.text = landmark.address
+        holder.itemView.landmark_distance.text = "%.2f".format(landmark.distance) + " mi"
+
+        // If no image, use default placeholder image
         Picasso.with(context).load(Uri.parse(landmark.imageString)).into(holder.itemView.landmarkImage)
+
 
     }
 

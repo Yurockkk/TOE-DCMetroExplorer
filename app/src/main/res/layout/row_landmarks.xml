@@ -38,7 +38,8 @@
             android:layout_marginLeft="@dimen/card_landmark_margin"
             android:layout_toRightOf="@+id/landmarkImage"
             android:layout_alignParentTop="true"
-            android:textSize="10sp"
+            android:textSize="14sp"
+            android:textStyle="bold"
             />
 
         <TextView
@@ -46,9 +47,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/landmark_address"
             android:layout_marginLeft="@dimen/card_landmark_margin"
+            android:layout_marginTop="@dimen/card_landmark_margin"
             android:layout_toRightOf="@+id/landmarkImage"
             android:layout_below="@+id/landmarkName"
-            android:text = "address"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/landmark_distance"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/card_landmark_margin"
+            android:layout_below="@+id/landmark_address"
             />
 
     </RelativeLayout>
