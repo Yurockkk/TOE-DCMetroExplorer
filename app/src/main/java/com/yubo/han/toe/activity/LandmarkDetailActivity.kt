@@ -32,6 +32,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         Log.i(LOG_TAG,landmarkData.name)
 
         landmarkDetailToolbar.title = landmarkData.name
+//        landmarkDetial_toolbar_title.text = landmarkData.name
         // Set up tool bar
         setSupportActionBar(landmarkDetailToolbar)
 

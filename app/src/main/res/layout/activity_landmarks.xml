@@ -16,7 +16,6 @@
             android:id="@+id/landmark_toolbar_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/light_gray"/>
