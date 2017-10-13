@@ -1,6 +1,7 @@
 package com.yubo.han.toe.activity
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -15,6 +16,9 @@ import kotlinx.android.synthetic.main.activity_menu.*
 import com.yubo.han.toe.Services.LocationDetector
 import com.yubo.han.toe.Services.PersistanceManager
 import org.jetbrains.anko.toast
+import android.net.ConnectivityManager
+import com.yubo.han.toe.Utilities
+
 
 class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectCompletedListener {
 
@@ -49,10 +53,12 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 //            Log.i(LOG_TAG,"permissionCheck: $permissionCheck")
 
             if(permissionCheck == PackageManager.PERMISSION_GRANTED){
-                //get location permission, start to detect location
-                mLocationDetector.getDeviceLocationUpdate()
-
-//                mLocationDetector.getDeviceLastLocation()
+                if(Utilities.isNetworkAvailable(this)){
+                    //get location permission, start to detect location
+                    mLocationDetector.getDeviceLocationUpdate()
+                }else{
+                    toast("No network ability, please connect to WiFi or GPS and try again")
+                }
 
 
             }else{
@@ -81,6 +87,11 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
             startActivity(favoriteIntent)
         })
     }
+
+//    private fun isNetworkAvailable(): Boolean {
+//        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//        return cm.activeNetworkInfo != null
+//    }
 
     override fun onResume() {
         super.onResume()

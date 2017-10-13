@@ -1,6 +1,8 @@
 package com.yubo.han.toe
 
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.util.Log
 import com.google.gson.JsonObject
@@ -142,5 +144,11 @@ object Utilities {
         "GR" ->  R.drawable.button_bg_metro_line_green
         "YL" ->  R.drawable.button_bg_metro_line_yellow
         else ->  R.drawable.button_bg_round
+    }
+
+    //check if we have WiFi or GPS
+    fun isNetworkAvailable(context: Context): Boolean{
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null
     }
 }
