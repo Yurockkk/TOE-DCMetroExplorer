@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
+import com.yubo.han.toe.Constants
 
 import com.yubo.han.toe.R
 import com.yubo.han.toe.model.Landmarks
@@ -36,7 +37,7 @@ class LandmarksAdapter(private var context: Context,private var landmarkList: Ar
         val landmark = landmarkList.get(position)
         holder.itemView.landmarkName.text = landmark.name
         holder.itemView.landmark_address.text = landmark.address
-        holder.itemView.landmark_distance.text = "%.2f".format(landmark.distance) + " mi"
+        holder.itemView.landmark_distance.text = "%.2f".format(landmark.distance * Constants.CENTIMETER_TO_MILE) + " mi"
 
         // If no image, use default placeholder image
         Picasso.with(context).load(Uri.parse(landmark.imageString)).into(holder.itemView.landmarkImage)
