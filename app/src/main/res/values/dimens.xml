@@ -12,6 +12,8 @@
     <dimen name="Landmark_image_height">200dp</dimen>
     <dimen name="landmarkDetail_image_width">150dp</dimen>
     <dimen name="LandmarkDetail_image_height">150dp</dimen>
+    <dimen name="landmarkDetail_yelp_card_height">50dp</dimen>
+    <dimen name="landmarkDetail_yelp_margin">10dp</dimen>
     <dimen name="activity_detail_left_margin">5dp</dimen>
     <dimen name="station_card_holder">80dp</dimen>
 </resources>

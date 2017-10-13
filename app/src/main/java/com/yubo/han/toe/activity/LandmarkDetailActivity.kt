@@ -62,6 +62,15 @@ class LandmarkDetailActivity : AppCompatActivity() {
             mapIntent.`package` = "com.google.android.apps.maps"
             startActivity(mapIntent)
         })
+
+        // yelp link
+        yelp_link.setOnClickListener(View.OnClickListener {
+
+            val yelpPage = Uri.parse(yelpUrl)
+            val yelpIntent = Intent(Intent.ACTION_VIEW, yelpPage)
+            startActivity(yelpIntent)
+        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
