@@ -61,7 +61,6 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
             }else{
                 //TODO: maybe popup a dialog to tell user we need the permission to use 'near station' function?
-                Log.i(LOG_TAG, "ask user for location permission!")
                 toast(getString(R.string.ask_for_permission))
                 checkLocationPermission()
             }
@@ -78,7 +77,6 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
             else{
                 toast(getString(R.string.no_network_ability))
             }
-
         })
 
 
@@ -142,12 +140,12 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
         if(requestCode == MY_PERMISSIONS_REQUEST_FINE_LOCATION){
             if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                toast("get location access")
+                toast(R.string.permission_granted)
             }else{
 
             }
         }else{
-            toast("unhandled request code")
+            toast(R.string.permission_declined)
         }
     }
 
@@ -158,9 +156,9 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
     override fun locationDetected(location: Location) {
 
-        val locatiionTestIntent = Intent(this, LandmarksActivity::class.java)
-        locatiionTestIntent.putExtra("location", location)
-        startActivity(locatiionTestIntent)
+        val locatiionIntent = Intent(this, LandmarksActivity::class.java)
+        locatiionIntent.putExtra("location", location)
+        startActivity(locatiionIntent)
 
         Log.i(LOG_TAG,"location detected")
 
