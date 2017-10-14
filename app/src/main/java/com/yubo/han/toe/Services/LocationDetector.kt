@@ -69,8 +69,8 @@ class LocationDetector(val context: Context) {
 
         var mLocationRequest = LocationRequest()
         mLocationRequest
-                .setInterval(10000)
-                .setFastestInterval(5000)
+                .setInterval(0)
+                .setFastestInterval(0)
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setNumUpdates(1)
                 .setExpirationDuration(10000)
@@ -86,6 +86,7 @@ class LocationDetector(val context: Context) {
 
 
         mFusedLocationClient.requestLocationUpdates(mLocationRequest,mLocationCallback,null)
+
 
     }
 
