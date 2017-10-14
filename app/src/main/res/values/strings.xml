@@ -16,4 +16,6 @@
     <string name="stationNotLoaded">Stations not loaded</string>
     <string name="remove_from_favorite">Remove the landmark from favorite</string>
     <string name="distance_unit">mi</string>
+    <string name="no_landmarks">No landmarks loaded</string>
+    <string name="no_station_found">No metro station found near you</string>
 </resources>

@@ -117,7 +117,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // if failed to get the landmarks
     override fun landmarkNotLoaded() {
         // Will add a feature
-        toast("No landmarks")
+        toast(getString(R.string.no_landmarks))
     }
 
     // If successfully get the nearest metro station
@@ -129,7 +129,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     }
     // If failed to get the nearest metro station
     override fun nearMetroNotLoaded() {
-        toast("No metro found near you")
+        toast(getString(R.string.no_station_found))
     }
 
     override fun onResume() {
