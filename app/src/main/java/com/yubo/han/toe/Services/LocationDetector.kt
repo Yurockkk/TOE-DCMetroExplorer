@@ -6,6 +6,8 @@ import android.location.Location
 import android.location.LocationListener
 import android.util.Log
 import com.google.android.gms.location.*
+import java.util.*
+import kotlin.concurrent.timerTask
 
 
 class LocationDetector(val context: Context) {
@@ -54,19 +56,29 @@ class LocationDetector(val context: Context) {
     @SuppressLint("MissingPermission")
     fun getDeviceLocationUpdate(){
 
+        //create a timer
+        var timer = Timer()
 
         mLocationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
-                for (location in locationResult!!.locations) {
-                    print("lon: ${location.longitude}, lat: ${location.latitude}")
-                    locationDetectCompletedListener?.onLocationChanged(location)
-                }
+
+                //get locationCallback, remove location updates and timer
+                mFusedLocationClient.removeLocationUpdates(this)
+                timer.cancel()
+
+                //fire callback with location
+                locationDetectCompletedListener?.onLocationChanged(locationResult?.locations?.first())
             }
-
-
         }
 
+        //start a timer to ensure location detection ends after 10 secs
+        timer.schedule(timerTask {
+            //if time expire, remove location update and fire locationNotDetect callback
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+            locationDetectCompletedListener?.locationNotDetected()
+        },10*1000)
 
+        //create LocationRequest
         var mLocationRequest = LocationRequest()
         mLocationRequest
                 .setInterval(0)
@@ -74,19 +86,9 @@ class LocationDetector(val context: Context) {
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setNumUpdates(1)
                 .setExpirationDuration(10000)
-        //TODO: need to handle expiration callback?
 
-        //create a LocationSettingsRequest.Builder and add mLocationRequest to it
-        val builder = LocationSettingsRequest.Builder()
-                .addLocationRequest(mLocationRequest)
-
-        // check whether the current location settings are satisfied
-        val client = LocationServices.getSettingsClient(context)
-        val task = client.checkLocationSettings(builder.build())
-
-
+        //start location update
         mFusedLocationClient.requestLocationUpdates(mLocationRequest,mLocationCallback,null)
-
 
     }
 
