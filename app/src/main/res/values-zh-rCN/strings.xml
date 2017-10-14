@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TOE</string>
+    <string name="near_station_button_text">near station</string>
+    <string name="select_station_button_text">select station</string>
+    <string name="favorite_landmark_button_text">favorite landmarks</string>
+    <string name="action_search">Search metro stations...</string>
+    <string name="add_to_favorite">add to favorite</string>
+    <string name="share">share</string>
+    <string name="fav_landmarks">Favorite Landmarks</string>
+</resources>

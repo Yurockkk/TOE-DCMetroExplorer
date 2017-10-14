@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TOE</string>
+    <string name="near_station_button_text">最近地鐵站</string>
+    <string name="select_station_button_text">自選地鐵站</string>
+    <string name="favorite_landmark_button_text">我的最愛</string>
+    <string name="action_search">站名搜索...</string>
+    <string name="add_to_favorite">加到我的最愛</string>
+    <string name="share">分享</string>
+    <string name="fav_landmarks">我的最愛</string>
+</resources>
