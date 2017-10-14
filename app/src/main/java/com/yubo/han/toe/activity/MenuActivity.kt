@@ -58,7 +58,7 @@ class MenuActivity : AppCompatActivity() {
 
             else {
                 toast(getString(R.string.ask_for_permission))
-                checkLocationPermission()
+                //checkLocationPermission()
             }
         })
 
@@ -85,30 +85,11 @@ class MenuActivity : AppCompatActivity() {
 
     fun checkLocationPermission() {
 
-        val permissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+        //check if we have ACCESS_FINE_LOCATION permission
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),MY_PERMISSIONS_REQUEST_FINE_LOCATION)
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
+            //We don't have ACCESS_FINE_LOCATION permission, request the permission.
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),MY_PERMISSIONS_REQUEST_FINE_LOCATION)
         }
     }
 
@@ -119,10 +100,10 @@ class MenuActivity : AppCompatActivity() {
             if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 toast(getString(R.string.permission_granted))
             }else{
-
+                toast(getString(R.string.permission_declined))
             }
         }else{
-            toast(getString(R.string.permission_declined))
+            //other request permission
         }
     }
 
