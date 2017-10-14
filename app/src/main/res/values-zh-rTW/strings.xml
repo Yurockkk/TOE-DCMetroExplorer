@@ -13,5 +13,6 @@
     <string name="ask_for_permission">請至設定裡開啟"位置"權限後再試一次</string>
     <string name="permission_declined">無法取得位置權限！</string>
     <string name="permission_granted">取得位置權限！</string>
+    <string name="stationNotLoaded">無法讀取地鐵站資訊</string>
 
 </resources>
