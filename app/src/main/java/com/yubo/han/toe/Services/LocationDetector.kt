@@ -23,11 +23,15 @@ class LocationDetector(val context: Context) {
         fun locationNotDetected()
     }
 
+    init {
+        // create an instance of the Fused Location Provider Client
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+
+    }
+
 
     fun getDeviceLastLocation(){
 
-        // create an instance of the Fused Location Provider Client
-        var mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         try{
             mFusedLocationClient.lastLocation.addOnSuccessListener { location ->
                  //Got last known location. In some rare situations this can be null.
@@ -50,8 +54,6 @@ class LocationDetector(val context: Context) {
     @SuppressLint("MissingPermission")
     fun getDeviceLocationUpdate(){
 
-        // create an instance of the Fused Location Provider Client
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
 
         mLocationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
