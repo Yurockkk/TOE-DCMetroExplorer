@@ -88,6 +88,15 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.i(LOG_TAG, "onResume")
+        if(from == 3){
+            var favLandmarks = persistanceManager.fetchLandmarks()
+            displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
+        }
+    }
+
 
     // find the nearest metro station base on current location
     fun queryNearStations(lat: Float, lon: Float) {
@@ -108,41 +117,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     }
 
 
-    // If successfully get the landmarks
-    override fun landmarkLoaded(landmarkList:ArrayList<Landmarks>) {
-
-        displayLandmarkList(landmarkList)
-    }
-
-    // if failed to get the landmarks
-    override fun landmarkNotLoaded() {
-        // Will add a feature
-        toast(getString(R.string.no_landmarks))
-    }
-
-    // If successfully get the nearest metro station
-    override fun nearMetroLoaded(nearMetro: NearMetroStations) {
-
-        landmark_toolbar_text.text = nearMetro.name
-
-        loadYelp(nearMetro.latitude, nearMetro.longitude)
-    }
-    // If failed to get the nearest metro station
-    override fun nearMetroNotLoaded() {
-        toast(getString(R.string.no_station_found))
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i(LOG_TAG, "onResume")
-        if(from == 3){
-            var favLandmarks = persistanceManager.fetchLandmarks()
-            displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
-        }
-    }
-
-
-
     // Display the queried landmarks in RecyclerView
     fun displayLandmarkList(landmarkList:ArrayList<Landmarks>) {
 
@@ -158,4 +132,34 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         landmarkAdapter.setOnItemClickListener(onItemClickListener)
     }
 
+
+    /**
+     * FetchLandmarksManager.LandmarkSearchCompletionListener implementation
+     */
+    // If successfully get the landmarks
+    override fun landmarkLoaded(landmarkList:ArrayList<Landmarks>) {
+
+        displayLandmarkList(landmarkList)
+    }
+
+    // if failed to get the landmarks
+    override fun landmarkNotLoaded() {
+        // Will add a feature
+        toast(getString(R.string.no_landmarks))
+    }
+
+    /**
+     * FetchMetroStationsManager.NearMetroSearchCompletionListener implementation
+     */
+    // If successfully get the nearest metro station
+    override fun nearMetroLoaded(nearMetro: NearMetroStations) {
+
+        landmark_toolbar_text.text = nearMetro.name
+
+        loadYelp(nearMetro.latitude, nearMetro.longitude)
+    }
+    // If failed to get the nearest metro station
+    override fun nearMetroNotLoaded() {
+        toast(getString(R.string.no_station_found))
+    }
 }

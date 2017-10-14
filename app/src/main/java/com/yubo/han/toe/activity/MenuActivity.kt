@@ -60,7 +60,6 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
 
             }else{
-                //TODO: maybe popup a dialog to tell user we need the permission to use 'near station' function?
                 toast(getString(R.string.ask_for_permission))
                 checkLocationPermission()
             }
