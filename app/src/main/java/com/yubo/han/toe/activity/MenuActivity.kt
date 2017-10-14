@@ -55,13 +55,14 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
                     //get location permission, start to detect location
                     mLocationDetector.getDeviceLocationUpdate()
                 }else{
-                    toast("No network ability, please connect to WiFi or GPS and try again")
+                    toast(getString(R.string.no_network_ability))
                 }
 
 
             }else{
                 //TODO: maybe popup a dialog to tell user we need the permission to use 'near station' function?
                 Log.i(LOG_TAG, "ask user for location permission!")
+                toast(getString(R.string.ask_for_permission))
                 checkLocationPermission()
             }
 
@@ -70,8 +71,14 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
         // Click select station button
         select_station_button.setOnClickListener(View.OnClickListener {
-            val metroStationIntent = Intent(this, MetroStationsActivity::class.java)
-            startActivity(metroStationIntent)
+            if(Utilities.isNetworkAvailable(this)){
+                val metroStationIntent = Intent(this, MetroStationsActivity::class.java)
+                startActivity(metroStationIntent)
+            }
+            else{
+                toast(getString(R.string.no_network_ability))
+            }
+
         })
 
 

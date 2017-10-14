@@ -9,4 +9,7 @@
     <string name="fav_landmarks">我的最愛</string>
     <string name="get_direction">查看路線</string>
     <string name="yelp_link">了解更多</string>
+    <string name="no_network_ability">您目前沒有網路連線能力!請連結至WiFi或是行動網路後再試一次</string>
+    <string name="ask_for_permission">請至設定裡開啟"位置"權限後再試一次</string>
+
 </resources>

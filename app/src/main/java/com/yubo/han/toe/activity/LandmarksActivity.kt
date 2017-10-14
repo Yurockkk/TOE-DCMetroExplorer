@@ -81,9 +81,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             // Favorite Landmark---TODO
             from = 3
             landmark_toolbar_text.text = getString(R.string.fav_landmarks)
-
-
-
         }
 
         // Set up action bar

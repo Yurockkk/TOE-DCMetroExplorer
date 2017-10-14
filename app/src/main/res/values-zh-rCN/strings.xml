@@ -9,4 +9,7 @@
     <string name="fav_landmarks">收藏</string>
     <string name="get_direction">查看路线</string>
     <string name="yelp_link">了解更多</string>
+    <string name="no_network_ability">you don\'t have network ability! please connect to WiFi or Cellular Network and try again</string>
+    <string name="ask_for_permission">Please enable Location permission in the setting and try again!</string>
+
 </resources>
