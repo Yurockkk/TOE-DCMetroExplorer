@@ -45,31 +45,30 @@ class MenuActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_FINE_LOCATION)
 //            Log.i(LOG_TAG,"permissionCheck: $permissionCheck")
 
-            if(permissionCheck == PackageManager.PERMISSION_GRANTED){
+            if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
                 if(Utilities.isNetworkAvailable(this)){
                     val nearStationIntent = Intent(this, LandmarksActivity::class.java)
                     nearStationIntent.putExtra("nearStation", "true")
                     startActivity(nearStationIntent)
-                }else{
+                }
+                else {
                     toast(getString(R.string.no_network_ability))
                 }
+            }
 
-
-            }else{
+            else {
                 toast(getString(R.string.ask_for_permission))
                 checkLocationPermission()
             }
-
-
         })
 
         // Click select station button
         select_station_button.setOnClickListener(View.OnClickListener {
-            if(Utilities.isNetworkAvailable(this)){
+            if(Utilities.isNetworkAvailable(this)) {
                 val metroStationIntent = Intent(this, MetroStationsActivity::class.java)
                 startActivity(metroStationIntent)
             }
-            else{
+            else {
                 toast(getString(R.string.no_network_ability))
             }
         })

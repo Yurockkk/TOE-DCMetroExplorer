@@ -17,6 +17,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import com.yubo.han.toe.R
+import com.yubo.han.toe.Utilities
 
 
 class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsSearchCompletedListener {
@@ -57,6 +58,7 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
         loadMetroStations()
     }
 
+    // Load metro data from WMATA
     private fun loadMetroStations() {
         mFetchMetroStationsManager = FetchMetroStationsManager(this)
         //regist itself to metroStationsCompletedListener
@@ -67,22 +69,8 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
 
     }
 
-    override fun stationsLoaded(stationList: ArrayList<MetroStations>) {
-        //toast("${stationList}")
 
-        this.stationList = stationList
-
-        // Stop the progress bar once load the data
-        metro_indeterminate_bar.visibility = View.GONE
-
-        displayStationList()
-
-    }
-
-    override fun stationsNotLoaded() {
-        toast(getString(R.string.stationNotLoaded))
-    }
-
+    // Display metro stations in RecyclerView
     fun displayStationList() {
 
         mStaggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
@@ -99,7 +87,7 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
     }
 
 
-    // To check if user search
+    // Search function on app bar: to check if any input from user
     private fun searchStation() {
         editTextSearch?.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -130,6 +118,24 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
         }
 
         mMetroStationsAdapter.filterList(filterdStations)
+    }
+
+
+    /**
+     * FetchMetroStationsManager.MetroStationsSearchCompletedListener implementation
+     */
+    override fun stationsLoaded(stationList: ArrayList<MetroStations>) {
+        this.stationList = stationList
+
+        // Stop the progress bar once load the data
+        metro_indeterminate_bar.visibility = View.GONE
+
+        displayStationList()
+
+    }
+
+    override fun stationsNotLoaded() {
+        toast(getString(R.string.stationNotLoaded))
     }
 
 }

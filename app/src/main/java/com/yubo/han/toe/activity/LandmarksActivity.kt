@@ -37,6 +37,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // Click landmark item listener
     var onItemClickListener = object : LandmarksAdapter.OnItemClickListener {
         override fun onItemClick(view: View, landmarkData: Landmarks) {
+
             // Direct to LandmarkDetail Activity, pass landmark data to the activity
             val landmarkDetailIntent = Intent(this@LandmarksActivity, LandmarkDetailActivity::class.java)
             landmarkDetailIntent.putExtra("landmarkDetail", landmarkData)
@@ -91,7 +92,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     override fun onResume() {
         super.onResume()
-        Log.i(LOG_TAG, "onResume")
+//        Log.i(LOG_TAG, "onResume")
         if(from == 3){
             var favLandmarks = persistanceManager.fetchLandmarks()
             displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
@@ -135,6 +136,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         landmarkAdapter = LandmarksAdapter(this, landmarkList)
         landmarkViewList.adapter = landmarkAdapter
 
+        // Action on click landmark
         landmarkAdapter.setOnItemClickListener(onItemClickListener)
     }
 
@@ -178,7 +180,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     }
 
     override fun locationNotDetected() {
-
+        toast(getString(R.string.no_location_detected))
     }
 
     override fun onLocationChanged(location: Location?) {
