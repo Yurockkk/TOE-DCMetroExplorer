@@ -140,12 +140,12 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
         if(requestCode == MY_PERMISSIONS_REQUEST_FINE_LOCATION){
             if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                toast(R.string.permission_granted)
+                toast(getString(R.string.permission_granted))
             }else{
 
             }
         }else{
-            toast(R.string.permission_declined)
+            toast(getString(R.string.permission_declined))
         }
     }
 

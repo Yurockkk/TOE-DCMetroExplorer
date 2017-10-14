@@ -14,4 +14,6 @@
     <string name="permission_declined">Location permission not granted!</string>
     <string name="permission_granted">Get Location Permission</string>
     <string name="stationNotLoaded">Stations not loaded</string>
+    <string name="remove_from_favorite">Remove the landmark from favorite</string>
+    <string name="distance_unit">mi</string>
 </resources>

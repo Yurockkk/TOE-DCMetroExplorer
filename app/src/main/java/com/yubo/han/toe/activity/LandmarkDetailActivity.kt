@@ -40,7 +40,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         val name = landmarkData.name
         val url = landmarkData.imageString
         val address = landmarkData.address
-        val distance = "%.2f".format(landmarkData.distance) + " mi"
+        val distance = "%.2f".format(landmarkData.distance) + resources.getString(R.string.distance_unit)
         val yelpUrl = landmarkData.yelpUrl
 
         landmarkDetail_name.setText(name)
@@ -95,12 +95,12 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
         val isSave = persistanceManager.saveLandmark(landmarkData)
         if (isSave) {
-            toast("Landmark favorite")
+            toast(getString(R.string.add_to_favorite))
             item.setIcon(R.drawable.ic_favorite_white_24dp)
         }
 
         else {
-            toast("landmark unfavorite")
+            toast(getString(R.string.remove_from_favorite))
             item.setIcon(R.drawable.ic_favorite_border_white_24dp)
         }
     }

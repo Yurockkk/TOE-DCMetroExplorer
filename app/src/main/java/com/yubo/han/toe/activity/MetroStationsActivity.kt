@@ -80,7 +80,7 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
     }
 
     override fun stationsNotLoaded() {
-        toast(R.string.stationNotLoaded)
+        toast(getString(R.string.stationNotLoaded))
     }
 
     fun displayStationList() {

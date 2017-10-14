@@ -14,5 +14,7 @@
     <string name="permission_declined">無法取得位置權限！</string>
     <string name="permission_granted">取得位置權限！</string>
     <string name="stationNotLoaded">無法讀取地鐵站資訊</string>
+    <string name="remove_from_favorite">從我的最愛中移出</string>
+    <string name="distance_unit">英里</string>
 
 </resources>

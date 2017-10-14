@@ -37,7 +37,7 @@ class LandmarksAdapter(private var context: Context,private var landmarkList: Ar
         val landmark = landmarkList.get(position)
         holder.itemView.landmarkName.text = landmark.name
         holder.itemView.landmark_address.text = landmark.address
-        holder.itemView.landmark_distance.text = "%.2f".format(landmark.distance * Constants.CENTIMETER_TO_MILE) + " mi"
+        holder.itemView.landmark_distance.text = "%.2f".format(landmark.distance * Constants.CENTIMETER_TO_MILE) + context.getString(R.string.distance_unit)
 
         // If no image, use default placeholder image
         Picasso.with(context).load(Uri.parse(landmark.imageString)).into(holder.itemView.landmarkImage)
