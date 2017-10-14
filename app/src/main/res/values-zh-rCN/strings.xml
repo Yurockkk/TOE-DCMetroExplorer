@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">TOE</string>
-    <string name="near_station_button_text">near station</string>
-    <string name="select_station_button_text">select station</string>
-    <string name="favorite_landmark_button_text">favorite landmarks</string>
-    <string name="action_search">Search metro stations...</string>
-    <string name="add_to_favorite">add to favorite</string>
-    <string name="share">share</string>
-    <string name="fav_landmarks">Favorite Landmarks</string>
+    <string name="near_station_button_text">附近地铁站</string>
+    <string name="select_station_button_text">选择地铁站</string>
+    <string name="favorite_landmark_button_text">收藏</string>
+    <string name="action_search">搜索地铁站</string>
+    <string name="add_to_favorite">添加到收藏</string>
+    <string name="share">分享</string>
+    <string name="fav_landmarks">收藏</string>
+    <string name="get_direction">查看路线</string>
+    <string name="yelp_link">了解更多</string>
 </resources>
