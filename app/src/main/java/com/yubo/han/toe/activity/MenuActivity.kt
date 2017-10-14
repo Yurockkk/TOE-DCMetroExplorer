@@ -3,27 +3,25 @@ package com.yubo.han.toe.activity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
+
 import com.yubo.han.toe.R
 import kotlinx.android.synthetic.main.activity_menu.*
-import com.yubo.han.toe.Services.LocationDetector
+
 import com.yubo.han.toe.Services.PersistanceManager
 import org.jetbrains.anko.toast
 import com.yubo.han.toe.Utilities
 
 
-class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectCompletedListener {
+class MenuActivity : AppCompatActivity() {
 
     val LOG_TAG = "MenuActivity"
     val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 666
-    //lateinit var mFusedLocationClient: Any
-    lateinit var mLocationDetector: LocationDetector
     lateinit var persistanceManager: PersistanceManager
 
 
@@ -32,9 +30,6 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        mLocationDetector = LocationDetector(this)
-        //register itself to metroStationsCompletedListener
-        mLocationDetector.locationDetectCompletedListener = this
         persistanceManager = PersistanceManager(this)
 
         initUI()
@@ -52,8 +47,9 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
 
             if(permissionCheck == PackageManager.PERMISSION_GRANTED){
                 if(Utilities.isNetworkAvailable(this)){
-                    //get location permission, start to detect location
-                    mLocationDetector.getDeviceLocationUpdate()
+                    val nearStationIntent = Intent(this, LandmarksActivity::class.java)
+                    nearStationIntent.putExtra("nearStation", "true")
+                    startActivity(nearStationIntent)
                 }else{
                     toast(getString(R.string.no_network_ability))
                 }
@@ -82,28 +78,11 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
         // Click favorite button
         favorite_landmark_button.setOnClickListener(View.OnClickListener {
             val favoriteIntent = Intent(this, LandmarksActivity::class.java)
+            favoriteIntent.putExtra("favorite", "true")
             startActivity(favoriteIntent)
         })
     }
 
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mLocationDetector.stopLocationUpdates();
-    }
 
     fun checkLocationPermission() {
 
@@ -148,47 +127,4 @@ class MenuActivity : AppCompatActivity(), LocationDetector.LocationDetectComplet
         }
     }
 
-
-
-
-    //LocationDetectCompletedListener implementation
-
-    override fun locationDetected(location: Location) {
-
-        val locatiionIntent = Intent(this, LandmarksActivity::class.java)
-        locatiionIntent.putExtra("location", location)
-        startActivity(locatiionIntent)
-
-        Log.i(LOG_TAG,"location detected")
-
-    }
-
-    override fun locationNotDetected() {
-
-        Log.i(LOG_TAG, "location not detected")
-    }
-
-    override fun onLocationChanged(location: Location?) {
-        Log.i(LOG_TAG, "in onLocationChanged, ${location.toString()}")
-        if(location != null){
-            val locatiionIntent = Intent(this, LandmarksActivity::class.java)
-            locatiionIntent.putExtra("location", location)
-            startActivity(locatiionIntent)
-        }else{      //error handler: if we cannot get location update, then we call 'getDeviceLastLocation()'
-            mLocationDetector.getDeviceLastLocation()
-        }
-        toast(location.toString())
-    }
-    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
-        Log.i(LOG_TAG, "in onStatusChanged, ${p0.toString()}")
-
-    }
-
-    override fun onProviderEnabled(p0: String?) {
-        Log.i(LOG_TAG, "in onProviderEnabled, ${p0.toString()}")
-    }
-
-    override fun onProviderDisabled(p0: String?) {
-        Log.i(LOG_TAG, "in onProviderDisabled, ${p0.toString()}")
-    }
 }

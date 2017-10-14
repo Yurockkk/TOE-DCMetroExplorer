@@ -16,5 +16,6 @@
     <string name="stationNotLoaded">Stations not loaded</string>
     <string name="remove_from_favorite">Remove the landmark from favorite</string>
     <string name="distance_unit">mi</string>
+    <string name="no_location_detected">Please check your location setting!</string>
 
 </resources>

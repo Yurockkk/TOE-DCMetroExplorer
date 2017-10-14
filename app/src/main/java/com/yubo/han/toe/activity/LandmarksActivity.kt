@@ -9,11 +9,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 
 import com.yubo.han.toe.R
-import com.yubo.han.toe.Services.FetchLandmarksManager
-import com.yubo.han.toe.Services.LandmarksAdapter
+import com.yubo.han.toe.Services.*
 import com.yubo.han.toe.model.Landmarks
-import com.yubo.han.toe.Services.FetchMetroStationsManager
-import com.yubo.han.toe.Services.PersistanceManager
 import com.yubo.han.toe.model.MetroStations
 import com.yubo.han.toe.model.NearMetroStations
 
@@ -23,9 +20,12 @@ import org.jetbrains.anko.toast
 
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener,
-                            FetchMetroStationsManager.NearMetroSearchCompletionListener{
+                            FetchMetroStationsManager.NearMetroSearchCompletionListener, LocationDetector.LocationDetectCompletedListener{
+
+
     private val LOG_TAG = "LandmarksActivity"
 
+    lateinit var mLocationDetector: LocationDetector
     lateinit var mFetchLandmarksManager: FetchLandmarksManager
     lateinit var mFetchMetroStationsManager: FetchMetroStationsManager
     lateinit private var landmarkAdapter: LandmarksAdapter
@@ -48,11 +48,14 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
+        mLocationDetector = LocationDetector(this)
+        mLocationDetector.locationDetectCompletedListener = this
         persistanceManager = PersistanceManager(this)
 
         //Obtain intent from station intent and location intent
         val stationData = intent.getParcelableExtra<MetroStations>("stationData")
-        val locationData = intent.getParcelableExtra<Location>("location")
+        val nearStation = intent.getStringExtra("nearStation")
+        val favoriteLandmark = intent.getStringExtra("favorite")
 
 
         if (stationData != null) {// From MetroStationActivity
@@ -69,16 +72,14 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             loadYelp(metroLat, metroLon)
         }
 
-        else if (locationData != null) {// From the nearest station intent
+        if (nearStation == "true") {// From the nearest station intent
             from = 2
-            // Get location coordinates
-            val curLat = locationData.latitude.toFloat()
-            val curLon = locationData.longitude.toFloat()
+            // Get location
+            mLocationDetector.getDeviceLocationUpdate()
 
-            // Search the nearest station
-            queryNearStations(curLat, curLon)
-        } else {
-            // Favorite Landmark---TODO
+        }
+
+        if (favoriteLandmark == "true") { // from Favorite Landmark intent
             from = 3
             landmark_toolbar_text.text = getString(R.string.fav_landmarks)
         }
@@ -95,6 +96,11 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             var favLandmarks = persistanceManager.fetchLandmarks()
             displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mLocationDetector.stopLocationUpdates();
     }
 
 
@@ -162,4 +168,34 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     override fun nearMetroNotLoaded() {
         toast(getString(R.string.no_station_found))
     }
+
+
+    /**
+     * LocationDetectCompletedListener implementation
+     */
+    override fun locationDetected(location: Location) {
+        queryNearStations(location.latitude.toFloat(), location.longitude.toFloat())
+    }
+
+    override fun locationNotDetected() {
+
+    }
+
+    override fun onLocationChanged(location: Location?) {
+        if(location != null) {
+            queryNearStations(location.latitude.toFloat(), location.longitude.toFloat())
+        } else {      //error handler: if we cannot get location update, then we call 'getDeviceLastLocation()'
+            mLocationDetector.getDeviceLastLocation()
+        }
+    }
+
+    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+    }
+
+    override fun onProviderEnabled(p0: String?) {
+    }
+
+    override fun onProviderDisabled(p0: String?) {
+    }
+
 }

@@ -18,4 +18,5 @@
     <string name="distance_unit">mi</string>
     <string name="no_landmarks">No landmarks loaded</string>
     <string name="no_station_found">No metro station found near you</string>
+    <string name="no_location_detected">Please check your location setting!</string>
 </resources>
