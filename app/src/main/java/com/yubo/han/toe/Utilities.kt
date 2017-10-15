@@ -155,9 +155,6 @@ object Utilities {
 
     fun isLocationServiceEnable(context: Context): Boolean{
         val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        Log.d(LOG_TAG,"lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER):${lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)}")
-        Log.d(LOG_TAG,"lm.isProviderEnabled(LocationManager.GPS_PROVIDER):${lm.isProviderEnabled(LocationManager.GPS_PROVIDER)}")
-        Log.d(LOG_TAG,"isLocationServiceEnable:${lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) && lm.isProviderEnabled(LocationManager.GPS_PROVIDER)}")
         return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) && lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 }
