@@ -11,6 +11,7 @@ import android.net.Uri
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.yubo.han.toe.Constants
 import com.yubo.han.toe.R
 import com.yubo.han.toe.Services.PersistanceManager
 import org.jetbrains.anko.toast
@@ -29,34 +30,16 @@ class LandmarkDetailActivity : AppCompatActivity() {
 
         //Obtain landmarkData from intent
         landmarkData = intent.getParcelableExtra<Landmarks>("landmarkDetail")
-        Log.i(LOG_TAG,landmarkData.name)
+//        Log.i(LOG_TAG,landmarkData.name)
 
-        landmarkDetailToolbar.title = landmarkData.name
-//        landmarkDetial_toolbar_title.text = landmarkData.name
-        // Set up tool bar
-        setSupportActionBar(landmarkDetailToolbar)
-
-        // Set member variable
-        val name = landmarkData.name
-        val url = landmarkData.imageString
-        val address = landmarkData.address
-        val distance = "%.2f".format(landmarkData.distance) + resources.getString(R.string.distance_unit)
-        val yelpUrl = landmarkData.yelpUrl
-
-        landmarkDetail_name.setText(name)
-        landmarkDetail_address.setText(address)
-        landmarkDetail_distance.setText(distance)
-        Picasso.with(this).load(Uri.parse(url)).into(landmarkDetail_image)
+        initUI(landmarkData)
 
         // Favorite button
         persistanceManager = PersistanceManager(this)
 
-
-        // get lat & lon
+        // Google directin link
         var lat = landmarkData.latitude
         var lon = landmarkData.longitude
-
-        // Google directin link
         google_link.setOnClickListener(View.OnClickListener {
 
             val gmmIntentUri = Uri.parse("google.navigation:q=$lat, $lon&mode=w")
@@ -66,6 +49,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         })
 
         // yelp link
+        val yelpUrl = landmarkData.yelpUrl
         yelp_link.setOnClickListener(View.OnClickListener {
 
             val yelpPage = Uri.parse(yelpUrl)
@@ -73,6 +57,27 @@ class LandmarkDetailActivity : AppCompatActivity() {
             startActivity(yelpIntent)
         })
 
+    }
+
+    // Display landmark information
+    fun initUI(landmarkData: Landmarks) {
+
+        landmarkDetailToolbar.title = landmarkData.name
+
+        // Set up tool bar
+        setSupportActionBar(landmarkDetailToolbar)
+
+        // Set member variable
+        val name = landmarkData.name
+        val url = landmarkData.imageString
+        val address = landmarkData.address
+        val distance = "%.2f".format(landmarkData.distance * Constants.CENTIMETER_TO_MILE) + resources.getString(R.string.distance_unit)
+
+
+        landmarkDetail_name.setText(name)
+        landmarkDetail_address.setText(address)
+        landmarkDetail_distance.setText(distance)
+        Picasso.with(this).load(Uri.parse(url)).into(landmarkDetail_image)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -90,6 +95,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         return true
     }
 
+    // Add or remove favorite landmark
     fun addLandmarkPressed(item: MenuItem){
 //        toast("addLandmarkPressed")
 
@@ -105,6 +111,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         }
     }
 
+    // Share landmark info to other apps
     fun sharePressed(item: MenuItem){
         val landmarkInfo = landmarkData.name + "\n" + landmarkData.address + "\n" + landmarkData.yelpUrl
 
