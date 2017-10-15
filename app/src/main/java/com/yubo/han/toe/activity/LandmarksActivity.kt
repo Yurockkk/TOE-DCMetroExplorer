@@ -154,6 +154,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     override fun landmarkNotLoaded() {
         // Will add a feature
         toast(getString(R.string.no_landmarks))
+        finish()
     }
 
     /**
@@ -169,6 +170,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // If failed to get the nearest metro station
     override fun nearMetroNotLoaded() {
         toast(getString(R.string.no_station_found))
+        finish()
     }
 
 

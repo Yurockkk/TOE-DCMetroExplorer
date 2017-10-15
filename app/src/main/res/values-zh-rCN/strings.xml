@@ -9,13 +9,13 @@
     <string name="fav_landmarks">收藏</string>
     <string name="get_direction">查看路线</string>
     <string name="yelp_link">了解更多</string>
-    <string name="no_network_ability">you don\'t have network ability! please connect to WiFi or Cellular Network and try again</string>
-    <string name="ask_for_permission">Please enable Location permission in the setting and try again!</string>
-    <string name="permission_declined">Location permission not granted!</string>
-    <string name="permission_granted">Get Location Permission</string>
-    <string name="stationNotLoaded">Stations not loaded</string>
-    <string name="remove_from_favorite">Remove the landmark from favorite</string>
-    <string name="distance_unit">mi</string>
-    <string name="no_location_detected">Please check your location setting!</string>
+    <string name="no_network_ability">当前没有网络，请连接网络后再尝试！</string>
+    <string name="ask_for_permission">请开启位置信息权限再尝试!</string>
+    <string name="permission_declined">请允许TOE访问您的位置信息!</string>
+    <string name="permission_granted">获取位置信息成功</string>
+    <string name="stationNotLoaded">没有地铁站信息</string>
+    <string name="remove_from_favorite">取消收藏</string>
+    <string name="distance_unit">英里</string>
+    <string name="no_location_detected">请开启位置信息设置!</string>
 
 </resources>

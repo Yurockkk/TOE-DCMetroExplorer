@@ -16,6 +16,6 @@
     <string name="stationNotLoaded">無法讀取地鐵站資訊</string>
     <string name="remove_from_favorite">從我的最愛中移出</string>
     <string name="distance_unit">英里</string>
-    <string name="no_location_detected">Please check your location setting!</string>
+    <string name="no_location_detected">請開啟位置信息設定!</string>
 
 </resources>
