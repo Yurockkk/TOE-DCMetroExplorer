@@ -2,6 +2,7 @@ package com.yubo.han.toe
 
 import android.content.Context
 import android.graphics.Color
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.util.Log
@@ -150,5 +151,13 @@ object Utilities {
     fun isNetworkAvailable(context: Context): Boolean{
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return cm.activeNetworkInfo != null
+    }
+
+    fun isLocationServiceEnable(context: Context): Boolean{
+        val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        Log.d(LOG_TAG,"lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER):${lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)}")
+        Log.d(LOG_TAG,"lm.isProviderEnabled(LocationManager.GPS_PROVIDER):${lm.isProviderEnabled(LocationManager.GPS_PROVIDER)}")
+        Log.d(LOG_TAG,"isLocationServiceEnable:${lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) && lm.isProviderEnabled(LocationManager.GPS_PROVIDER)}")
+        return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) && lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 }

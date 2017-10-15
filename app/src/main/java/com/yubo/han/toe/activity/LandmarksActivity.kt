@@ -181,6 +181,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     override fun locationNotDetected() {
         toast(getString(R.string.no_location_detected))
+        finish()
     }
 
     override fun onLocationChanged(location: Location?) {
