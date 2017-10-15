@@ -153,7 +153,9 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // if failed to get the landmarks
     override fun landmarkNotLoaded() {
         // Will add a feature
-        toast(getString(R.string.no_landmarks))
+        runOnUiThread {
+            toast(getString(R.string.no_landmarks))
+        }
         finish()
     }
 
@@ -169,7 +171,9 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     }
     // If failed to get the nearest metro station
     override fun nearMetroNotLoaded() {
-        toast(getString(R.string.no_station_found))
+        runOnUiThread {
+            toast(getString(R.string.no_station_found))
+        }
         finish()
     }
 
@@ -182,7 +186,10 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     }
 
     override fun locationNotDetected() {
-        toast(getString(R.string.no_location_detected))
+        //toast(getString(R.string.no_location_detected))
+        runOnUiThread({
+            toast(getString(R.string.no_location_detected))
+        })
         finish()
     }
 
