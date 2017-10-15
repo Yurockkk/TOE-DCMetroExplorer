@@ -28,7 +28,7 @@ class LocationDetector(val context: Context) {
 
     init {
         // create an instance of the Fused Location Provider Client
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
     }
 

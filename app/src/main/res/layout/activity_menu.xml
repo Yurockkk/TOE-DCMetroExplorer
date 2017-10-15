@@ -13,8 +13,7 @@
         android:id="@+id/app_name_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_menu"
-        android:layout_marginBottom="40dp"/>
+        android:background="@drawable/ic_menu_toe" />
 
     <Button
         android:id="@+id/near_station_button"

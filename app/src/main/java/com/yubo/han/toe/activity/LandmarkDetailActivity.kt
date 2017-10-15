@@ -73,7 +73,7 @@ class LandmarkDetailActivity : AppCompatActivity() {
         val address = landmarkData.address
         val distance = "%.2f".format(landmarkData.distance * Constants.CENTIMETER_TO_MILE) + resources.getString(R.string.distance_unit)
 
-
+        // Set values to display
         landmarkDetail_name.setText(name)
         landmarkDetail_address.setText(address)
         landmarkDetail_distance.setText(distance)

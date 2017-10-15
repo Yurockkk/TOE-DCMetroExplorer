@@ -7,11 +7,7 @@
     <color name="primary">#D84315</color>
     <color name="primary_dark">#BF360C</color>
     <color name="accent">#E22F84</color>
-    <color name="light_green">#7ABA34</color>
-    <color name="dark_green">#5B852D</color>
-    <color name="light_gray">#F2F2F2</color>
-    <color name="photo_tint">#7f101010</color>
-    <color name="station_name">#7f101010</color>
+    <color name="light_gray">#FAFAFA</color>
 
 
     <color name="metro_red_line">#F44336</color>

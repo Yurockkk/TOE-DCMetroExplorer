@@ -16,6 +16,8 @@
     <string name="stationNotLoaded">没有地铁站信息</string>
     <string name="remove_from_favorite">取消收藏</string>
     <string name="distance_unit">英里</string>
+    <string name="no_landmarks">没有找到景点信息</string>
+    <string name="no_station_found">您的附近没有地铁站</string>
     <string name="no_location_detected">请开启位置信息设置!</string>
 
 </resources>

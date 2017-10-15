@@ -153,8 +153,25 @@ object Utilities {
         return cm.activeNetworkInfo != null
     }
 
+
+    // Check if the LocationService is enabled
     fun isLocationServiceEnable(context: Context): Boolean{
         val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) && lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        var networkEnable = false
+        var gpsEnable = false
+
+        try {
+            networkEnable = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        } catch (e: Exception) {
+            Log.e(LOG_TAG, e.message)
+        }
+
+        try {
+            gpsEnable = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (e: Exception) {
+            Log.e(LOG_TAG, e.message)
+        }
+
+        return networkEnable || gpsEnable
     }
 }

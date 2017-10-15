@@ -22,15 +22,15 @@ import org.jetbrains.anko.toast
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener,
                             FetchMetroStationsManager.NearMetroSearchCompletionListener, LocationDetector.LocationDetectCompletedListener{
 
-
     private val LOG_TAG = "LandmarksActivity"
 
-    lateinit var mLocationDetector: LocationDetector
-    lateinit var mFetchLandmarksManager: FetchLandmarksManager
+    lateinit private var mLocationDetector: LocationDetector
+    lateinit private var mFetchLandmarksManager: FetchLandmarksManager
     lateinit var mFetchMetroStationsManager: FetchMetroStationsManager
     lateinit private var landmarkAdapter: LandmarksAdapter
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
     lateinit var persistanceManager: PersistanceManager
+
     var from: Int = -1      //tell where is this activity get called    -1 -> undefined     1 -> from Select Station button     2 -> from Nearest Station button  3 -> from Favorite Landmark button
 
 
@@ -87,7 +87,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
         // Set up action bar
         setSupportActionBar(landmarkToolbar)
-
     }
 
     override fun onResume() {
@@ -152,7 +151,6 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
     // if failed to get the landmarks
     override fun landmarkNotLoaded() {
-        // Will add a feature
         runOnUiThread {
             toast(getString(R.string.no_landmarks))
         }
