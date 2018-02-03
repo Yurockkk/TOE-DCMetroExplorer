@@ -4,9 +4,11 @@ import android.content.Intent
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
+import android.widget.ImageView
 
 import com.yubo.han.toe.R
 import com.yubo.han.toe.Services.*
@@ -16,7 +18,7 @@ import com.yubo.han.toe.model.NearMetroStations
 
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import org.jetbrains.anko.toast
-
+import android.support.v4.util.Pair
 
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener,
@@ -41,7 +43,12 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             // Direct to LandmarkDetail Activity, pass landmark data to the activity
             val landmarkDetailIntent = Intent(this@LandmarksActivity, LandmarkDetailActivity::class.java)
             landmarkDetailIntent.putExtra("landmarkDetail", landmarkData)
-            startActivity(landmarkDetailIntent)
+
+            //transition
+            val lImage = view.findViewById<ImageView>(R.id.landmarkImage)
+            val imagePair = Pair.create(lImage as View, "tImage")
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandmarksActivity,imagePair)
+            startActivity(landmarkDetailIntent,options.toBundle())
         }
     }
 
