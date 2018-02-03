@@ -129,7 +129,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         // Stop the progress bar once load the data
         landmark_indeterminate_bar.visibility = View.GONE
 
-        staggeredLayoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+        staggeredLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         landmarkViewList.layoutManager = staggeredLayoutManager
 
         landmarkAdapter = LandmarksAdapter(this, landmarkList)

@@ -2,6 +2,7 @@ package com.yubo.han.toe.Services
 
 import android.content.Context
 import android.net.Uri
+import android.support.v7.graphics.Palette
 import android.support.v7.widget.RecyclerView
 
 
@@ -10,12 +11,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import com.yubo.han.toe.Constants
 
 import com.yubo.han.toe.R
 import com.yubo.han.toe.model.Landmarks
 
 import kotlinx.android.synthetic.main.row_landmarks.view.*
+import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
+import android.widget.Toast
+import android.R.attr.bitmap
+import android.support.v4.content.ContextCompat
+
 
 /**
  * Created by han on 9/25/17.
@@ -36,12 +44,33 @@ class LandmarksAdapter(private var context: Context,private var landmarkList: Ar
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val landmark = landmarkList.get(position)
         holder.itemView.landmarkName.text = landmark.name
-        holder.itemView.landmark_address.text = landmark.address
-        holder.itemView.landmark_distance.text = "%.2f".format(landmark.distance * Constants.CENTIMETER_TO_MILE) + context.getString(R.string.distance_unit)
+//        holder.itemView.landmark_address.text = landmark.address
+//        holder.itemView.landmark_distance.text = "%.2f".format(landmark.distance * Constants.CENTIMETER_TO_MILE) + context.getString(R.string.distance_unit)
 
         // If no image, use default placeholder image
-        Picasso.with(context).load(Uri.parse(landmark.imageString)).into(holder.itemView.landmarkImage)
-
+        Picasso.with(context)
+                .load(Uri.parse(landmark.imageString))
+                .into(holder.itemView.landmarkImage)
+//                .into(object : Target {
+//                    override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
+//
+//                        holder.itemView.landmarkImage.setImageBitmap(bitmap)
+//
+//                        Palette.from(bitmap)
+//                                .generate { palette ->
+//                                    val bgColor = palette.getMutedColor(ContextCompat.getColor(context, android.R.color.black))
+//                                    holder.itemView.landmarkNameHolder.setBackgroundColor(bgColor)
+//                                }
+//                    }
+//
+//                    override fun onBitmapFailed(errorDrawable: Drawable) {
+//
+//                    }
+//
+//                    override fun onPrepareLoad(placeHolderDrawable: Drawable) {
+//
+//                    }
+//                })
 
     }
 
