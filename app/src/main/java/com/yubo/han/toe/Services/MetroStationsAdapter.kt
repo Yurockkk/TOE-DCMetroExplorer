@@ -1,7 +1,6 @@
 package com.yubo.han.toe.Services
 
 import android.content.Context
-import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import com.yubo.han.toe.R
 import com.yubo.han.toe.model.MetroStations
 
 import kotlinx.android.synthetic.main.row_metro_station.view.*
-import com.squareup.picasso.Picasso
 import com.yubo.han.toe.Utilities
 
 /**

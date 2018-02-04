@@ -3,14 +3,11 @@ package com.yubo.han.toe.Services
 import android.content.Context
 import android.util.Log
 
-import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
 import com.yubo.han.toe.Utilities
 import com.yubo.han.toe.model.MetroStations
 import com.yubo.han.toe.model.NearMetroStations
-
-import org.jetbrains.anko.toast
 
 /**
  * Created by yubo on 9/25/17.

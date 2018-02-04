@@ -1,8 +1,6 @@
 package com.yubo.han.toe
 
-/**
- * Created by han on 9/26/17.
- */
+
 object Constants {
     // Yelp token
     val YELP_QUEST_TOKEN_URL = "https://api.yelp.com/oauth2/token"

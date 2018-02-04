@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Get Directions"/>
+                android:text="@string/get_direction"/>
         </LinearLayout>
 
         <!--Yelp link-->
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Explore more on Yelp"
+                android:text="@string/yelp_link"
                 android:layout_marginLeft="@dimen/landmarkDetail_yelp_margin"
                 android:layout_gravity="center_vertical"
                 android:textSize="15sp"/>

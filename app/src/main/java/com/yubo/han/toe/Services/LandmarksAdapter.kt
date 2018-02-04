@@ -2,32 +2,20 @@ package com.yubo.han.toe.Services
 
 import android.content.Context
 import android.net.Uri
-import android.support.v7.graphics.Palette
 import android.support.v7.widget.RecyclerView
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
-import com.yubo.han.toe.Constants
 
 import com.yubo.han.toe.R
 import com.yubo.han.toe.model.Landmarks
 
 import kotlinx.android.synthetic.main.row_landmarks.view.*
-import android.graphics.drawable.Drawable
-import android.graphics.Bitmap
-import android.widget.Toast
-import android.R.attr.bitmap
-import android.support.v4.content.ContextCompat
 
 
-/**
- * Created by han on 9/25/17.
- */
 class LandmarksAdapter(private var context: Context,private var landmarkList: ArrayList<Landmarks>): RecyclerView.Adapter<LandmarksAdapter.ViewHolder>() {
     private val LOG_TAG = "LandmarksAdapter"
 

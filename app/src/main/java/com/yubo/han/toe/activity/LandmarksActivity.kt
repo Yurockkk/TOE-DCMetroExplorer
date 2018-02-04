@@ -108,14 +108,14 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onResume()
 //        Log.i(LOG_TAG, "onResume")
         if(from == 3){
-            var favLandmarks = persistanceManager.fetchLandmarks()
+            val favLandmarks = persistanceManager.fetchLandmarks()
             displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
         }
     }
 
     override fun onStop() {
         super.onStop()
-        mLocationDetector.stopLocationUpdates();
+        mLocationDetector.stopLocationUpdates()
     }
 
 

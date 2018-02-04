@@ -8,13 +8,9 @@ import android.content.Context
 import android.util.Log
 
 import com.koushikdutta.ion.Ion
-import com.yubo.han.toe.model.MetroStations
-import com.yubo.han.toe.model.NearMetroStations
-import org.jetbrains.anko.toast
 
-/**
- * Created by han on 9/25/17.
- */
+
+
 class FetchLandmarksManager(val context: Context) {
     private val LOG_TAG = "FetchLandmarksManager"
 

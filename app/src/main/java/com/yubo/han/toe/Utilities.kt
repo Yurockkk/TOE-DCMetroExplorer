@@ -1,19 +1,15 @@
 package com.yubo.han.toe
 
 import android.content.Context
-import android.graphics.Color
 import android.location.LocationManager
 import android.net.ConnectivityManager
-import android.net.Uri
 import android.util.Log
 import com.google.gson.JsonObject
 import com.yubo.han.toe.model.Landmarks
 import com.yubo.han.toe.model.MetroStations
 import com.yubo.han.toe.model.NearMetroStations
 
-/**
- * Created by han on 9/28/17.
- */
+
 object Utilities {
 
     val LOG_TAG = "Utilities"
@@ -23,9 +19,8 @@ object Utilities {
 
         val type = jsonobject.get("token_type").asString
         val token = jsonobject.get("access_token").asString
-        val accessToken = type + " " + token
 
-        return accessToken
+        return type + " " + token
     }
 
 

@@ -65,7 +65,7 @@ class LocationDetector(val context: Context) {
             locationDetectCompletedListener?.locationNotDetected()
         }else{
             //create a timer
-            var timer = Timer()
+            val timer = Timer()
 
             mLocationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult?) {
@@ -87,7 +87,7 @@ class LocationDetector(val context: Context) {
             },10*1000)
 
             //create LocationRequest
-            var mLocationRequest = LocationRequest()
+            val mLocationRequest = LocationRequest()
             mLocationRequest
                     .setInterval(0)
                     .setFastestInterval(0)

@@ -1,15 +1,12 @@
 package com.yubo.han.toe.Services
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
 import com.yubo.han.toe.Utilities
 
-/**
- * Created by han on 9/25/17.
- */
+
 class YelpAuthManager {
     val LOG_TAG = "YelpAuthManager"
 
@@ -22,9 +19,7 @@ class YelpAuthManager {
                 .asJsonObject()
                 .get()
 
-        val token = Utilities.parseTokenFromYelp(json)
-
-        return token
+        return Utilities.parseTokenFromYelp(json)
     }
 
 }

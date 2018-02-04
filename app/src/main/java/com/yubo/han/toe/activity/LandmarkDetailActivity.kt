@@ -8,7 +8,6 @@ import com.yubo.han.toe.model.Landmarks
 import kotlinx.android.synthetic.main.activity_landmark_detail.*
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.yubo.han.toe.Constants
@@ -38,8 +37,8 @@ class LandmarkDetailActivity : AppCompatActivity() {
         persistanceManager = PersistanceManager(this)
 
         // Google directin link
-        var lat = landmarkData.latitude
-        var lon = landmarkData.longitude
+        val lat = landmarkData.latitude
+        val lon = landmarkData.longitude
         google_link.setOnClickListener(View.OnClickListener {
 
             val gmmIntentUri = Uri.parse("google.navigation:q=$lat, $lon&mode=w")

@@ -17,7 +17,6 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import com.yubo.han.toe.R
-import com.yubo.han.toe.Utilities
 
 
 class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.MetroStationsSearchCompletedListener {
@@ -51,7 +50,7 @@ class MetroStationsActivity : AppCompatActivity(), FetchMetroStationsManager.Met
         // Set up tool bar
         setSupportActionBar(metroStationToolbar)
         // Disable android keyboard popup automatically
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
 
 

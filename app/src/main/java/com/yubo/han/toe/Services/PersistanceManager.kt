@@ -9,9 +9,7 @@ import com.google.gson.reflect.TypeToken
 import com.yubo.han.toe.Constants
 import com.yubo.han.toe.model.Landmarks
 
-/**
- * Created by han on 9/25/17.
- */
+
 class PersistanceManager(context: Context) {
 
     val LOG_TAG = "PersistanceManager"
@@ -39,13 +37,13 @@ class PersistanceManager(context: Context) {
         editor.putString(Constants.LANDMARKS_PREF_KEY,Gson().toJson(landmarks))
 
         editor.apply()
-        Log.i(LOG_TAG,"landmarks size: ${landmarks.size}, content: ${landmarks.toString()}")
+        Log.i(LOG_TAG,"landmarks size: ${landmarks.size}, content: $landmarks")
 
         return save
     }
 
     fun fetchLandmarks(): List<Landmarks>{
-        var landmarksJson = sharedPreferences.getString(Constants.LANDMARKS_PREF_KEY,null)
+        val landmarksJson = sharedPreferences.getString(Constants.LANDMARKS_PREF_KEY,null)
         //Log.i(LOG_TAG,"fetchLandmarks: ${landmarksJson.toString()}")
         if(landmarksJson == null){
             return arrayListOf<Landmarks>()
