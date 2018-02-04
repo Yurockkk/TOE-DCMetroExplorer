@@ -58,6 +58,9 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
+        // Set up action bar
+        setSupportActionBar(landmarkToolbar)
+
         mViewModel = ViewModelProviders.of(this).get(LandmarkViewModel::class.java)
         mLocationDetector = LocationDetector(this)
         mLocationDetector.locationDetectCompletedListener = this
@@ -77,7 +80,10 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
                 val stationName = stationData.name
 
                 // Display the station name in the app bar
-                landmark_toolbar_text.text = stationName
+                mViewModel.toolBarText = stationName
+                runOnUiThread {
+                    supportActionBar?.setTitle(mViewModel.toolBarText)
+                }
 
                 // Query and load landmarks data from yelp api
                 loadYelp(metroLat, metroLon)
@@ -92,21 +98,27 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
 
             if (favoriteLandmark == "true") { // from Favorite Landmark intent
                 from = 3
-                landmark_toolbar_text.text = getString(R.string.fav_landmarks)
+                mViewModel.toolBarText = getString(R.string.fav_landmarks)
+                runOnUiThread {
+                    supportActionBar?.setTitle(mViewModel.toolBarText)
+                }
+
             }
 
 
         }else{
             displayLandmarkList(mViewModel.landmarkList)
         }
-        // Set up action bar
-        setSupportActionBar(landmarkToolbar)
+
 
     }
 
     override fun onResume() {
         super.onResume()
 //        Log.i(LOG_TAG, "onResume")
+        runOnUiThread {
+            supportActionBar?.setTitle(mViewModel.toolBarText)
+        }
         if(from == 3){
             val favLandmarks = persistanceManager.fetchLandmarks()
             displayLandmarkList(favLandmarks as ArrayList<Landmarks>)
@@ -178,7 +190,13 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     // If successfully get the nearest metro station
     override fun nearMetroLoaded(nearMetro: NearMetroStations) {
 
-        landmark_toolbar_text.text = nearMetro.name
+        mViewModel.toolBarText = nearMetro.name
+
+        runOnUiThread {
+            supportActionBar?.setTitle(mViewModel.toolBarText)
+        }
+
+
 
         loadYelp(nearMetro.latitude, nearMetro.longitude)
     }

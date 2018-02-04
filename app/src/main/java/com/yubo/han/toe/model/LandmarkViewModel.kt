@@ -10,7 +10,6 @@ class LandmarkViewModel : ViewModel(){
 
     var landmarkList:ArrayList<Landmarks> = arrayListOf<Landmarks>()
     var toolBarText = ""
-        set(value) {Log.i("ViewModel","toolBar text is now $value") }
 
 
 
