@@ -1,5 +1,6 @@
 package com.yubo.han.toe.activity
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.location.Location
 import android.support.v7.app.AppCompatActivity
@@ -7,7 +8,6 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.util.Log
 import android.widget.ImageView
 
 import com.yubo.han.toe.R
@@ -19,6 +19,7 @@ import com.yubo.han.toe.model.NearMetroStations
 import kotlinx.android.synthetic.main.activity_landmarks.*
 import org.jetbrains.anko.toast
 import android.support.v4.util.Pair
+import com.yubo.han.toe.model.LandmarkViewModel
 
 
 class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSearchCompletionListener,
@@ -32,6 +33,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
     lateinit private var landmarkAdapter: LandmarksAdapter
     lateinit private var staggeredLayoutManager: StaggeredGridLayoutManager
     lateinit var persistanceManager: PersistanceManager
+    lateinit var mViewModel : LandmarkViewModel
 
     var from: Int = -1      //tell where is this activity get called    -1 -> undefined     1 -> from Select Station button     2 -> from Nearest Station button  3 -> from Favorite Landmark button
 
@@ -44,7 +46,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
             val landmarkDetailIntent = Intent(this@LandmarksActivity, LandmarkDetailActivity::class.java)
             landmarkDetailIntent.putExtra("landmarkDetail", landmarkData)
 
-            //transition
+            //activity transition
             val lImage = view.findViewById<ImageView>(R.id.landmarkImage)
             val imagePair = Pair.create(lImage as View, "tImage")
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandmarksActivity,imagePair)
@@ -56,6 +58,7 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landmarks)
 
+        mViewModel = ViewModelProviders.of(this).get(LandmarkViewModel::class.java)
         mLocationDetector = LocationDetector(this)
         mLocationDetector.locationDetectCompletedListener = this
         persistanceManager = PersistanceManager(this)
@@ -65,35 +68,40 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
         val nearStation = intent.getStringExtra("nearStation")
         val favoriteLandmark = intent.getStringExtra("favorite")
 
+        if (mViewModel.landmarkList.size == 0){
+            if (stationData != null) {// From MetroStationActivity
+                from = 1
+                // Set member variable
+                val metroLat = stationData.latitude
+                val metroLon = stationData.longitude
+                val stationName = stationData.name
 
-        if (stationData != null) {// From MetroStationActivity
-            from = 1
-            // Set member variable
-            val metroLat = stationData.latitude
-            val metroLon = stationData.longitude
-            val stationName = stationData.name
+                // Display the station name in the app bar
+                landmark_toolbar_text.text = stationName
 
-            // Display the station name in the app bar
-            landmark_toolbar_text.text = stationName
+                // Query and load landmarks data from yelp api
+                loadYelp(metroLat, metroLon)
+            }
 
-            // Query and load landmarks data from yelp api
-            loadYelp(metroLat, metroLon)
+            if (nearStation == "true") {// From the nearest station intent
+                from = 2
+                // Get location
+                mLocationDetector.getDeviceLocationUpdate()
+
+            }
+
+            if (favoriteLandmark == "true") { // from Favorite Landmark intent
+                from = 3
+                landmark_toolbar_text.text = getString(R.string.fav_landmarks)
+            }
+
+
+        }else{
+            displayLandmarkList(mViewModel.landmarkList)
         }
-
-        if (nearStation == "true") {// From the nearest station intent
-            from = 2
-            // Get location
-            mLocationDetector.getDeviceLocationUpdate()
-
-        }
-
-        if (favoriteLandmark == "true") { // from Favorite Landmark intent
-            from = 3
-            landmark_toolbar_text.text = getString(R.string.fav_landmarks)
-        }
-
         // Set up action bar
         setSupportActionBar(landmarkToolbar)
+
     }
 
     override fun onResume() {
@@ -152,8 +160,8 @@ class LandmarksActivity : AppCompatActivity(), FetchLandmarksManager.LandmarkSea
      */
     // If successfully get the landmarks
     override fun landmarkLoaded(landmarkList:ArrayList<Landmarks>) {
-
-        displayLandmarkList(landmarkList)
+        mViewModel.landmarkList = landmarkList
+        displayLandmarkList(mViewModel.landmarkList)
     }
 
     // if failed to get the landmarks
