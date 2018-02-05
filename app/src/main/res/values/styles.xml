@@ -17,5 +17,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MRaisedButton">
+        <item name="colorControlHighlight">@android:color/holo_purple</item>
+        <item name="colorButtonNormal">@android:color/holo_green_light</item>
+        <item name="android:elevation">8dp</item>
+    </style>
+
 
 </resources>

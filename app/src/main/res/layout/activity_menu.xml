@@ -17,16 +17,19 @@
         android:id="@+id/near_station_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/near_station_button_text"/>
+        android:text="@string/near_station_button_text"
+        android:theme="@style/MRaisedButton" />
     <Button
         android:id="@+id/select_station_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_station_button_text"/>
+        android:text="@string/select_station_button_text"
+        android:theme="@style/MRaisedButton"/>
     <Button
         android:id="@+id/favorite_landmark_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/favorite_landmark_button_text"/>
+        android:text="@string/favorite_landmark_button_text"
+        android:theme="@style/MRaisedButton"/>
 
 </LinearLayout>
