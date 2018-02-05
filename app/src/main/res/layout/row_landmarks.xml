@@ -43,7 +43,7 @@
     <LinearLayout
         android:id="@+id/landmarkNameHolder"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         >

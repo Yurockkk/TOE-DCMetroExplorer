@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.florent37.picassopalette.PicassoPalette
 import com.squareup.picasso.Picasso
 
 import com.yubo.han.toe.R
@@ -38,27 +39,10 @@ class LandmarksAdapter(private var context: Context,private var landmarkList: Ar
         // If no image, use default placeholder image
         Picasso.with(context)
                 .load(Uri.parse(landmark.imageString))
-                .into(holder.itemView.landmarkImage)
-//                .into(object : Target {
-//                    override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-//
-//                        holder.itemView.landmarkImage.setImageBitmap(bitmap)
-//
-//                        Palette.from(bitmap)
-//                                .generate { palette ->
-//                                    val bgColor = palette.getMutedColor(ContextCompat.getColor(context, android.R.color.black))
-//                                    holder.itemView.landmarkNameHolder.setBackgroundColor(bgColor)
-//                                }
-//                    }
-//
-//                    override fun onBitmapFailed(errorDrawable: Drawable) {
-//
-//                    }
-//
-//                    override fun onPrepareLoad(placeHolderDrawable: Drawable) {
-//
-//                    }
-//                })
+                .into(holder.itemView.landmarkImage,
+                        PicassoPalette.with(landmark.imageString,holder.itemView.landmarkImage)
+                        .use(PicassoPalette.Profile.MUTED).intoBackground(holder.itemView.landmarkNameHolder)
+                )
 
     }
 
