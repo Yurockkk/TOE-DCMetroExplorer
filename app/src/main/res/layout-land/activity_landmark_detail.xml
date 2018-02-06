@@ -77,51 +77,77 @@
 
 
         <!--Google direction-->
-        <LinearLayout
-            android:id="@+id/google_link"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/googleCard"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/landmarkDetail_yelp_margin"
-            android:orientation="horizontal"
+            android:layout_margin="@dimen/card_landmark_margin"
+            card_view:cardCornerRadius="@dimen/card_corner_radius"
+            card_view:cardElevation="@dimen/card_elevation"
             android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/direction_icon_image"
+            <LinearLayout
+                android:id="@+id/google_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_directions_black_24dp"/>
+                android:padding="@dimen/landmarkDetail_yelp_margin"
+                android:orientation="horizontal"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/direction_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@string/get_direction"/>
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/direction_icon_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_directions_black_24dp"/>
+
+                <TextView
+                    android:id="@+id/direction_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/get_direction"/>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
 
         <!--Yelp link-->
-        <LinearLayout
-            android:id="@+id/yelp_link"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/yelpCard"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/landmarkDetail_yelp_margin"
-            android:orientation="horizontal"
+            android:layout_margin="@dimen/card_landmark_margin"
+            card_view:cardCornerRadius="@dimen/card_corner_radius"
+            card_view:cardElevation="@dimen/card_elevation"
             android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/yelp_icon_image"
+            <LinearLayout
+                android:id="@+id/yelp_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_yelp"/>
+                android:padding="@dimen/landmarkDetail_yelp_margin"
+                android:orientation="horizontal"
+                android:layout_weight="1">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/yelp_link"
-                android:layout_marginLeft="@dimen/landmarkDetail_yelp_margin"
-                android:layout_gravity="center_vertical"
-                android:textSize="15sp"/>
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/yelp_icon_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_yelp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yelp_link"
+                    android:layout_marginLeft="@dimen/landmarkDetail_yelp_margin"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
 
     </LinearLayout>
 
