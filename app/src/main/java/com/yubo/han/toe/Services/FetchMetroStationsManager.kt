@@ -1,7 +1,6 @@
 package com.yubo.han.toe.Services
 
 import android.content.Context
-import android.content.res.Resources
 import android.util.Log
 
 import com.koushikdutta.ion.Ion
@@ -21,8 +20,6 @@ class FetchMetroStationsManager(val context: Context) {
     var metroStationsSearchCompletedListener: MetroStationsSearchCompletedListener? = null
 
     var nearMetroSearchCompletionListener: NearMetroSearchCompletionListener? = null
-
-    lateinit var yelpAuthManager: YelpAuthManager
 
 
     interface MetroStationsSearchCompletedListener{
@@ -70,9 +67,7 @@ class FetchMetroStationsManager(val context: Context) {
     // Query near metro station from Yelp API
     fun queryYelpForNearMetro(latitude: Float, longitude: Float) {
 
-        //Get auth token from Yelp
-//        yelpAuthManager = YelpAuthManager()
-//        val accessToken = yelpAuthManager.getYelpToken(context)
+
         Log.d(LOG_TAG, "APIKEY:" + context.getString(R.string.YELP_API_KEY))
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
                 .addHeader("Authorization", "Bearer "+ context.getString(R.string.YELP_API_KEY))

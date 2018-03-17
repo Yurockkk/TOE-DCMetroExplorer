@@ -14,8 +14,6 @@ import com.yubo.han.toe.R
 class FetchLandmarksManager(val context: Context) {
     private val LOG_TAG = "FetchLandmarksManager"
 
-    lateinit var yelpAuthManager: YelpAuthManager
-
 
     var landmarkSearchCompletionListener: LandmarkSearchCompletionListener? = null
 
@@ -28,9 +26,6 @@ class FetchLandmarksManager(val context: Context) {
     //Query landmarks list from Yelp Api
     fun queryYelpForLandMarks(latitude: Float, longitude: Float) {
 
-        //Get auth token from Yelp
-//        yelpAuthManager = YelpAuthManager()
-//        val accessToken = yelpAuthManager.getYelpToken(context)
 
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
                 .addHeader("Authorization", "Bearer "+ context.getString(R.string.YELP_API_KEY))

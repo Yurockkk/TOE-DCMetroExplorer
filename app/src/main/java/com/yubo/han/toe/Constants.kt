@@ -2,11 +2,6 @@ package com.yubo.han.toe
 
 
 object Constants {
-    // Yelp token
-    val YELP_QUEST_TOKEN_URL = "https://api.yelp.com/oauth2/token"
-    val YELP_CLIENT_SECRET = "JW8VLUQL9WAIRYmOV4TDJi3XpWJthbHKEjVrbgjAlcCwx97KO8XC6XaMsvlupsP8"
-    val YELP_GRANT_TYPE = "client_credentials"
-
 
     // Yelp search
     val YELP_SEARCH_TERM = "landmarks"
