@@ -8,7 +8,7 @@ import android.content.Context
 import android.util.Log
 
 import com.koushikdutta.ion.Ion
-
+import com.yubo.han.toe.R
 
 
 class FetchLandmarksManager(val context: Context) {
@@ -29,11 +29,11 @@ class FetchLandmarksManager(val context: Context) {
     fun queryYelpForLandMarks(latitude: Float, longitude: Float) {
 
         //Get auth token from Yelp
-        yelpAuthManager = YelpAuthManager()
-        val accessToken = yelpAuthManager.getYelpToken(context)
+//        yelpAuthManager = YelpAuthManager()
+//        val accessToken = yelpAuthManager.getYelpToken(context)
 
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
-                .addHeader("Authorization", accessToken)
+                .addHeader("Authorization", "Bearer "+ context.getString(R.string.YELP_API_KEY))
                 .addQuery("term", Constants.YELP_SEARCH_TERM)
                 .addQuery("radius", Constants.YELP_SEARCH_RADIUS.toString())
                 .addQuery("latitude", latitude.toString())

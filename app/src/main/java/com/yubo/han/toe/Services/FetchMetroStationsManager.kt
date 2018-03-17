@@ -1,10 +1,12 @@
 package com.yubo.han.toe.Services
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.Log
 
 import com.koushikdutta.ion.Ion
 import com.yubo.han.toe.Constants
+import com.yubo.han.toe.R
 import com.yubo.han.toe.Utilities
 import com.yubo.han.toe.model.MetroStations
 import com.yubo.han.toe.model.NearMetroStations
@@ -39,7 +41,7 @@ class FetchMetroStationsManager(val context: Context) {
     fun queryWMATAForAllStations(){
 
         Ion.with(context)
-                .load(Constants.METRO_ALLSTATION_SEARCH_URL)
+                .load("${Constants.METRO_ALLSTATION_SEARCH_URL}${context.getString(R.string.METRO_API_KEY)}")
                 .asJsonObject()
                 .setCallback { error, result ->
                     error?.let {
@@ -69,11 +71,11 @@ class FetchMetroStationsManager(val context: Context) {
     fun queryYelpForNearMetro(latitude: Float, longitude: Float) {
 
         //Get auth token from Yelp
-        yelpAuthManager = YelpAuthManager()
-        val accessToken = yelpAuthManager.getYelpToken(context)
-
+//        yelpAuthManager = YelpAuthManager()
+//        val accessToken = yelpAuthManager.getYelpToken(context)
+        Log.d(LOG_TAG, "APIKEY:" + context.getString(R.string.YELP_API_KEY))
         Ion.with(context).load(Constants.YELP_SEARCH_URL)
-                .addHeader("Authorization", accessToken)
+                .addHeader("Authorization", "Bearer "+ context.getString(R.string.YELP_API_KEY))
                 .addQuery("term", Constants.YELP_SEARCH_NEAR_METRO_TERM)
                 .addQuery("radius", Constants.YELP_SEARCH_NEAR_METRO_RADIUS.toString())
                 .addQuery("latitude", latitude.toString())
